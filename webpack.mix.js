@@ -11,5 +11,8 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
+
+//Isso aqui vai pegar todos os nossos arquivo js e css 
+//e compilar em um unico arquivo WEBPACK
+mix.js('resources/js/app.js', 'public/js/app.js')
    .sass('resources/sass/app.scss', 'public/css');
