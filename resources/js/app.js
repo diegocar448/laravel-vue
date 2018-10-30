@@ -3,7 +3,7 @@ require('./bootstrap');
 window.Vue = require('vue');
 
 import router from './routes/routers'
-//import store from '.././vuex/modules/store'
+import store from './vuex/modules/store'
 
 /**
  * Componentes globais que podem ser usados
@@ -13,6 +13,6 @@ import router from './routes/routers'
 
 const app = new Vue({    
     router,
-    //store,
+    store,
     el: '#app'
 });
