@@ -11945,10 +11945,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__routes_routers__ = __webpack_require__(37);
 //esse bootstrap não tem nada a ver com o framework css bootstrap
 __webpack_require__(12);
-
 window.Vue = __webpack_require__(9);
 
 
+//import store from '.././vuex/modules/store'
 
 /**
  * Componentes globais que podem ser usados
@@ -11958,6 +11958,7 @@ Vue.component('test-component', __webpack_require__(39));
 
 var app = new Vue({
   router: __WEBPACK_IMPORTED_MODULE_0__routes_routers__["a" /* default */],
+  //store,
   el: '#app'
 });
 
