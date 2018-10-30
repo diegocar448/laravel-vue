@@ -22,5 +22,5 @@ mix.js('resources/js/app.js', 'public/js')
 //o comando npm run dev
 //Aqui vamos passar o host
 // digite no terminal o comando npm run watch
-//mix.browserSync('http://laravel-vue.test/#/')
+mix.browserSync('http://laravel-vue.test/')
 
