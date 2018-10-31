@@ -1,6 +1,6 @@
 <template>
     <div>
-        Sou o template de admin
+        home page do dashboard
     </div>
 </template>
 

@@ -70,7 +70,7 @@
     <body>
         <div id="app" class="flex-center position-ref full-height">
 
-            <app-component></app-component>
+            <admin-component></admin-component>
 
             
         </div>
