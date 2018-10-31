@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>Sou um component vue JS =D</h1>
+        Sou o template de admin
     </div>
 </template>
 
@@ -10,6 +10,6 @@ export default {
 }
 </script>
 
-<style soped>
+<style>
 
 </style>

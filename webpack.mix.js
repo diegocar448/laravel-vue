@@ -21,6 +21,9 @@ mix.js('resources/js/app.js', 'public/js')
 //browserSync é para não precisar compilar toda hora com
 //o comando npm run dev
 //Aqui vamos passar o host
+//Digite para alterar a porta  npm config set proxy http://example.com:8080
 // digite no terminal o comando npm run watch
 mix.browserSync('http://laravel-vue.test/')
 
+//O npm run watch compila automaticamente a cada mudança
+//o browserSync atualiza o browser
