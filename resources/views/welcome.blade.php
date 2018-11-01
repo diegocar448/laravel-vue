@@ -67,10 +67,10 @@
         </style>
     </head>
     <body>
-        <div id="app" class="flex-center position-ref full-height">
+        <div id="app">
             
-            <app-component></app-component>
-            
+            <admin-component></admin-component>
+                 
 
             
         </div>
