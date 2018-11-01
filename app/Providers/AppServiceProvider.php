@@ -3,8 +3,6 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-//Aqui definimos a quantidade padrão de caracteres para as 
-//colunas de nossas tabelas
 use Illuminate\Support\Facades\Schema;
 
 class AppServiceProvider extends ServiceProvider
@@ -16,8 +14,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //Aqui definimos a quantidade padrão de caracteres para as 
-        //colunas de nossas tabelas
         Schema::defaultStringLength(191);
     }
 

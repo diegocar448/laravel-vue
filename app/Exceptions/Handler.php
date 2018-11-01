@@ -29,6 +29,8 @@ class Handler extends ExceptionHandler
     /**
      * Report or log an exception.
      *
+     * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
+     *
      * @param  \Exception  $exception
      * @return void
      */
@@ -46,30 +48,21 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        //personalizar o erro
-        //dd($exception);
-        if($exception instanceof \Symfony\Component\HttpKernel\Exception\NotFoundHttpException ){
-            //se a requisição retornar em JSON(expectsJson) ou seja um ajax então
-            if($request->expectsJson())
-                return response()->json(['error' => 'Nao encontrou nada'], $exception->getStatusCode());
+        if ($exception instanceof \Symfony\Component\HttpKernel\Exception\NotFoundHttpException) {
+            if ($request->expectsJson())            
+                return response()->json(['error' => 'Not_found_URI'], $exception->getStatusCode());
         }
 
-        //tratar erro caso a rota receba um verbo http errado
-        if($exception instanceof \Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException ){
-            //se a requisição retornar em JSON(expectsJson) ou seja um ajax então
-            if($request->expectsJson())
-                return response()->json(['error' => 'Metodo nao permitido'], $exception->getStatusCode());
+        if ($exception instanceof \Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException) {
+            if ($request->expectsJson())            
+                return response()->json(['error' => 'Method_Not_Allowed'], $exception->getStatusCode());
         }
 
+        if ($exception instanceof \Tymon\JWTAuth\Exceptions\TokenExpiredException)
+            return response()->json(['token_expired'], $exception->getStatusCode());
 
-        //Tratamento para caso o token seja expirado
-        if ($exception instanceof Tymon\JWTAuth\Exceptions\TokenExpiredException) {
-		    return response()->json(['token_expired'], $exception->getStatusCode());
-        }
-        
-        if ($exception instanceof Tymon\JWTAuth\Exceptions\TokenInvalidException) {
+        if ($exception instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException)
             return response()->json(['token_invalid'], $exception->getStatusCode());
-        }
 
 
         return parent::render($request, $exception);

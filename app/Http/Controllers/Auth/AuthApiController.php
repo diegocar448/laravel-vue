@@ -4,18 +4,16 @@ namespace App\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 
 class AuthApiController extends Controller
 {
-
-    public function __constuct()
+    public function __construct()
     {
-        $this->middleware('auth:api', ['except' => 'authenticate']);
+        $this->middleware('auth:api', ['except' => ['authenticate']]);
     }
-    
+
     public function authenticate(Request $request)
     {
         // grab credentials from the request
@@ -31,7 +29,7 @@ class AuthApiController extends Controller
             return response()->json(['error' => 'could_not_create_token'], 500);
         }
 
-        //Pegar o usuários autenticado
+        // Get user authenticated
         $user = auth()->user();
 
         // all good so return the token
@@ -39,7 +37,6 @@ class AuthApiController extends Controller
     }
 
 
-    // somewhere in your controller
     public function getAuthenticatedUser()
     {
         try {
@@ -66,27 +63,18 @@ class AuthApiController extends Controller
         return response()->json(compact('user'));
     }
 
-    //atualizar token
+
     public function refreshToken()
     {
-        //se não passar o token no header então retorna o erro 401
-        if(!$token = JWTAuth::getToken())
-        {
-            //dd("Entrou");
-            return response()->json(['error' => 'token_not_send'], 401);        
+        if (!$token = JWTAuth::getToken())
+            return response()->json(['error' => 'token_not_send'], 401);
 
-           
-        }
-
-         try {
-                $token = JWTAuth::refresh(); 
-            }
-        //retorna caso o token que foi passado seja invalido
-        catch(Tymon\JWTAuth\Exceptions\TokenInvalidException $e){
+        try {
+            $token = JWTAuth::refresh();
+        } catch (Tymon\JWTAuth\Exceptions\TokenInvalidException $e) {
             return response()->json(['token_invalid'], $e->getStatusCode());
         }
 
-        return response()->json(compact('token'));
+        return response()->json(compact('token', 'user'));
     }
-
 }

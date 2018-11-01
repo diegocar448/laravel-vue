@@ -42,7 +42,6 @@ trait ThrottlesLogins
      *
      * @param  \Illuminate\Http\Request  $request
      * @return void
-     *
      * @throws \Illuminate\Validation\ValidationException
      */
     protected function sendLockoutResponse(Request $request)
@@ -53,7 +52,7 @@ trait ThrottlesLogins
 
         throw ValidationException::withMessages([
             $this->username() => [Lang::get('auth.throttle', ['seconds' => $seconds])],
-        ])->status(429);
+        ])->status(423);
     }
 
     /**

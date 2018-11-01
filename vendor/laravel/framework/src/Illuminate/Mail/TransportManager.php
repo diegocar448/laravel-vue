@@ -77,10 +77,9 @@ class TransportManager extends Manager
             'version' => 'latest', 'service' => 'email',
         ]);
 
-        return new SesTransport(
-            new SesClient($this->addSesCredentials($config)),
-            $config['options'] ?? []
-        );
+        return new SesTransport(new SesClient(
+            $this->addSesCredentials($config)
+        ));
     }
 
     /**
@@ -92,7 +91,7 @@ class TransportManager extends Manager
     protected function addSesCredentials(array $config)
     {
         if ($config['key'] && $config['secret']) {
-            $config['credentials'] = Arr::only($config, ['key', 'secret', 'token']);
+            $config['credentials'] = Arr::only($config, ['key', 'secret']);
         }
 
         return $config;
@@ -119,9 +118,7 @@ class TransportManager extends Manager
 
         return new MailgunTransport(
             $this->guzzle($config),
-            $config['secret'],
-            $config['domain'],
-            $config['endpoint'] ?? null
+            $config['secret'], $config['domain']
         );
     }
 

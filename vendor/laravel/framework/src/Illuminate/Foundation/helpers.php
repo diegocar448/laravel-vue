@@ -4,19 +4,14 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\HtmlString;
 use Illuminate\Container\Container;
-use Illuminate\Queue\CallQueuedClosure;
 use Illuminate\Contracts\Bus\Dispatcher;
-use Illuminate\Queue\SerializableClosure;
 use Illuminate\Contracts\Auth\Access\Gate;
-use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Foundation\Bus\PendingDispatch;
-use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Contracts\Auth\Factory as AuthFactory;
 use Illuminate\Contracts\View\Factory as ViewFactory;
-use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Cookie\Factory as CookieFactory;
 use Symfony\Component\Debug\Exception\FatalThrowableError;
 use Illuminate\Database\Eloquent\Factory as EloquentFactory;
@@ -27,7 +22,7 @@ if (! function_exists('abort')) {
     /**
      * Throw an HttpException with the given data.
      *
-     * @param  \Symfony\Component\HttpFoundation\Response|\Illuminate\Contracts\Support\Responsable|int     $code
+     * @param  int     $code
      * @param  string  $message
      * @param  array   $headers
      * @return void
@@ -37,12 +32,6 @@ if (! function_exists('abort')) {
      */
     function abort($code, $message = '', array $headers = [])
     {
-        if ($code instanceof Response) {
-            throw new HttpResponseException($code);
-        } elseif ($code instanceof Responsable) {
-            throw new HttpResponseException($code->toResponse(request()));
-        }
-
         app()->abort($code, $message, $headers);
     }
 }
@@ -93,8 +82,8 @@ if (! function_exists('action')) {
     /**
      * Generate the URL to a controller action.
      *
-     * @param  string|array  $name
-     * @param  mixed   $parameters
+     * @param  string  $name
+     * @param  array   $parameters
      * @param  bool    $absolute
      * @return string
      */
@@ -241,7 +230,7 @@ if (! function_exists('cache')) {
         }
 
         if (is_string($arguments[0])) {
-            return app('cache')->get(...$arguments);
+            return app('cache')->get($arguments[0], $arguments[1] ?? null);
         }
 
         if (! is_array($arguments[0])) {
@@ -374,12 +363,11 @@ if (! function_exists('decrypt')) {
      * Decrypt the given value.
      *
      * @param  string  $value
-     * @param  bool   $unserialize
-     * @return mixed
+     * @return string
      */
-    function decrypt($value, $unserialize = true)
+    function decrypt($value)
     {
-        return app('encrypter')->decrypt($value, $unserialize);
+        return app('encrypter')->decrypt($value);
     }
 }
 
@@ -392,10 +380,6 @@ if (! function_exists('dispatch')) {
      */
     function dispatch($job)
     {
-        if ($job instanceof Closure) {
-            $job = new CallQueuedClosure(new SerializableClosure($job));
-        }
-
         return new PendingDispatch($job);
     }
 }
@@ -459,12 +443,11 @@ if (! function_exists('encrypt')) {
      * Encrypt the given value.
      *
      * @param  mixed  $value
-     * @param  bool   $serialize
      * @return string
      */
-    function encrypt($value, $serialize = true)
+    function encrypt($value)
     {
-        return app('encrypter')->encrypt($value, $serialize);
+        return app('encrypter')->encrypt($value);
     }
 }
 
@@ -570,7 +553,7 @@ if (! function_exists('mix')) {
      *
      * @param  string  $path
      * @param  string  $manifestDirectory
-     * @return \Illuminate\Support\HtmlString|string
+     * @return \Illuminate\Support\HtmlString
      *
      * @throws \Exception
      */
@@ -587,7 +570,7 @@ if (! function_exists('mix')) {
         }
 
         if (file_exists(public_path($manifestDirectory.'/hot'))) {
-            $url = rtrim(file_get_contents(public_path($manifestDirectory.'/hot')));
+            $url = file_get_contents(public_path($manifestDirectory.'/hot'));
 
             if (Str::startsWith($url, ['http://', 'https://'])) {
                 return new HtmlString(Str::after($url, ':').$path);
@@ -787,10 +770,10 @@ if (! function_exists('response')) {
     /**
      * Return a new response from the application.
      *
-     * @param  \Illuminate\View\View|string|array|null  $content
+     * @param  string  $content
      * @param  int     $status
      * @param  array   $headers
-     * @return \Illuminate\Http\Response|\Illuminate\Contracts\Routing\ResponseFactory
+     * @return \Symfony\Component\HttpFoundation\Response|\Illuminate\Contracts\Routing\ResponseFactory
      */
     function response($content = '', $status = 200, array $headers = [])
     {
@@ -808,9 +791,9 @@ if (! function_exists('route')) {
     /**
      * Generate the URL to a named route.
      *
-     * @param  array|string  $name
-     * @param  mixed  $parameters
-     * @param  bool  $absolute
+     * @param  string  $name
+     * @param  array   $parameters
+     * @param  bool    $absolute
      * @return string
      */
     function route($name, $parameters = [], $absolute = true)
@@ -973,7 +956,7 @@ if (! function_exists('validator')) {
      * @param  array  $rules
      * @param  array  $messages
      * @param  array  $customAttributes
-     * @return \Illuminate\Contracts\Validation\Validator|\Illuminate\Contracts\Validation\Factory
+     * @return \Illuminate\Contracts\Validation\Validator
      */
     function validator(array $data = [], array $rules = [], array $messages = [], array $customAttributes = [])
     {

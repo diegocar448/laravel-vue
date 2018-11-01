@@ -13,7 +13,6 @@ class StoreUpdateProductFormRequest extends FormRequest
      */
     public function authorize()
     {
-        //Sempre adicionar true quando for iniciar as validações
         return true;
     }
 
@@ -23,15 +22,13 @@ class StoreUpdateProductFormRequest extends FormRequest
      * @return array
      */
     public function rules()
-    {   //segment pega o valor pela posição do paramentro na url
+    {
         $id = $this->segment(3);
-        return [              //verificar se a chave estrangeira existe na tabela categories
-             'category_id' => "required|exists:categories,id",              
-             //'name'        => "required|min:3|max:10|unique:products,name,{$this->id}",
-             'name'        => "required|min:3|max:10|unique:products,name,{$id},id",
-             'description' => 'max:1000',
-             'image'       => 'image',
+        return [
+            'category_id'   => 'required|exists:categories,id',
+            'name'          => "required|min:3|max:10|unique:products,name,{$id},id",
+            'description'   => 'max:1000',
+            'image'         => 'image',
         ];
     }
 }
- 

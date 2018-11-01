@@ -236,23 +236,11 @@ class Router implements RegistrarContract, BindingRegistrar
      * @param  int  $status
      * @return \Illuminate\Routing\Route
      */
-    public function redirect($uri, $destination, $status = 302)
+    public function redirect($uri, $destination, $status = 301)
     {
         return $this->any($uri, '\Illuminate\Routing\RedirectController')
                 ->defaults('destination', $destination)
                 ->defaults('status', $status);
-    }
-
-    /**
-     * Create a permanent redirect from one URI to another.
-     *
-     * @param  string  $uri
-     * @param  string  $destination
-     * @return \Illuminate\Routing\Route
-     */
-    public function permanentRedirect($uri, $destination)
-    {
-        return $this->redirect($uri, $destination, 301);
     }
 
     /**
@@ -287,13 +275,12 @@ class Router implements RegistrarContract, BindingRegistrar
      * Register an array of resource controllers.
      *
      * @param  array  $resources
-     * @param  array  $options
      * @return void
      */
-    public function resources(array $resources, array $options = [])
+    public function resources(array $resources)
     {
         foreach ($resources as $name => $controller) {
-            $this->resource($name, $controller, $options);
+            $this->resource($name, $controller);
         }
     }
 
@@ -322,13 +309,12 @@ class Router implements RegistrarContract, BindingRegistrar
      * Register an array of API resource controllers.
      *
      * @param  array  $resources
-     * @param  array  $options
      * @return void
      */
-    public function apiResources(array $resources, array $options = [])
+    public function apiResources(array $resources)
     {
         foreach ($resources as $name => $controller) {
-            $this->apiResource($name, $controller, $options);
+            $this->apiResource($name, $controller);
         }
     }
 
@@ -342,14 +328,8 @@ class Router implements RegistrarContract, BindingRegistrar
      */
     public function apiResource($name, $controller, array $options = [])
     {
-        $only = ['index', 'show', 'store', 'update', 'destroy'];
-
-        if (isset($options['except'])) {
-            $only = array_diff($only, (array) $options['except']);
-        }
-
         return $this->resource($name, $controller, array_merge([
-            'only' => $only,
+            'only' => ['index', 'show', 'store', 'update', 'destroy'],
         ], $options));
     }
 
@@ -381,7 +361,7 @@ class Router implements RegistrarContract, BindingRegistrar
     protected function updateGroupStack(array $attributes)
     {
         if (! empty($this->groupStack)) {
-            $attributes = $this->mergeWithLastGroup($attributes);
+            $attributes = RouteGroup::merge($attributes, end($this->groupStack));
         }
 
         $this->groupStack[] = $attributes;
@@ -439,7 +419,7 @@ class Router implements RegistrarContract, BindingRegistrar
      * @param  \Closure|array|string|null  $action
      * @return \Illuminate\Routing\Route
      */
-    public function addRoute($methods, $uri, $action)
+    protected function addRoute($methods, $uri, $action)
     {
         return $this->routes->add($this->createRoute($methods, $uri, $action));
     }
@@ -640,8 +620,8 @@ class Router implements RegistrarContract, BindingRegistrar
     /**
      * Return the response for the given route.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Illuminate\Routing\Route  $route
+     * @param  Route  $route
+     * @param  Request  $request
      * @return mixed
      */
     protected function runRoute(Request $request, Route $route)
@@ -1076,7 +1056,7 @@ class Router implements RegistrarContract, BindingRegistrar
     /**
      * Alias for the "currentRouteNamed" method.
      *
-     * @param  mixed  ...$patterns
+     * @param  dynamic  $patterns
      * @return bool
      */
     public function is(...$patterns)
@@ -1087,7 +1067,7 @@ class Router implements RegistrarContract, BindingRegistrar
     /**
      * Determine if the current route matches a pattern.
      *
-     * @param  mixed  ...$patterns
+     * @param  dynamic  $patterns
      * @return bool
      */
     public function currentRouteNamed(...$patterns)
@@ -1138,10 +1118,9 @@ class Router implements RegistrarContract, BindingRegistrar
     /**
      * Register the typical authentication routes for an application.
      *
-     * @param  array  $options
      * @return void
      */
-    public function auth(array $options = [])
+    public function auth()
     {
         // Authentication Routes...
         $this->get('login', 'Auth\LoginController@showLoginForm')->name('login');
@@ -1149,33 +1128,14 @@ class Router implements RegistrarContract, BindingRegistrar
         $this->post('logout', 'Auth\LoginController@logout')->name('logout');
 
         // Registration Routes...
-        if ($options['register'] ?? true) {
-            $this->get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
-            $this->post('register', 'Auth\RegisterController@register');
-        }
+        $this->get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
+        $this->post('register', 'Auth\RegisterController@register');
 
         // Password Reset Routes...
         $this->get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
         $this->post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
         $this->get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
-        $this->post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
-
-        // Email Verification Routes...
-        if ($options['verify'] ?? false) {
-            $this->emailVerification();
-        }
-    }
-
-    /**
-     * Register the typical email verification routes for an application.
-     *
-     * @return void
-     */
-    public function emailVerification()
-    {
-        $this->get('email/verify', 'Auth\VerificationController@show')->name('verification.notice');
-        $this->get('email/verify/{id}', 'Auth\VerificationController@verify')->name('verification.verify');
-        $this->get('email/resend', 'Auth\VerificationController@resend')->name('verification.resend');
+        $this->post('password/reset', 'Auth\ResetPasswordController@reset');
     }
 
     /**
@@ -1251,7 +1211,7 @@ class Router implements RegistrarContract, BindingRegistrar
             return $this->macroCall($method, $parameters);
         }
 
-        if ($method === 'middleware') {
+        if ($method == 'middleware') {
             return (new RouteRegistrar($this))->attribute($method, is_array($parameters[0]) ? $parameters[0] : $parameters);
         }
 

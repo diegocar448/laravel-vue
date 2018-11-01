@@ -97,11 +97,9 @@ return [
     | Some people may want this behaviour for e.g. a mobile app.
     | This is not particularly recommended, so make sure you have appropriate
     | systems in place to revoke the token if necessary.
-    | Notice: If you set this to null you should remove 'exp' element from 'required_claims' list.
     |
     */
 
-    //Tempo de duração do Token gerado
     'ttl' => env('JWT_TTL', 60),
 
     /*
@@ -121,8 +119,6 @@ return [
     |
     */
 
-    //O tempo em minutos 20160 para a atualização do token
-    //Atualização de token a cada 14 dias
     'refresh_ttl' => env('JWT_REFRESH_TTL', 20160),
 
     /*

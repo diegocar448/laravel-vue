@@ -29,7 +29,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
      *
      * @var string
      */
-    const VERSION = '5.7.11';
+    const VERSION = '5.6.11';
 
     /**
      * The base path for the Laravel installation.
@@ -468,7 +468,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
      */
     public function environmentFilePath()
     {
-        return $this->environmentPath().DIRECTORY_SEPARATOR.$this->environmentFile();
+        return $this->environmentPath().'/'.$this->environmentFile();
     }
 
     /**
@@ -481,7 +481,13 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
         if (func_num_args() > 0) {
             $patterns = is_array(func_get_arg(0)) ? func_get_arg(0) : func_get_args();
 
-            return Str::is($patterns, $this['env']);
+            foreach ($patterns as $pattern) {
+                if (Str::is($pattern, $this['env'])) {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         return $this['env'];
@@ -494,7 +500,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
      */
     public function isLocal()
     {
-        return $this['env'] === 'local';
+        return $this['env'] == 'local';
     }
 
     /**
@@ -517,7 +523,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
      */
     public function runningInConsole()
     {
-        return php_sapi_name() === 'cli' || php_sapi_name() === 'phpdbg';
+        return php_sapi_name() == 'cli' || php_sapi_name() == 'phpdbg';
     }
 
     /**
@@ -527,7 +533,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
      */
     public function runningUnitTests()
     {
-        return $this['env'] === 'testing';
+        return $this['env'] == 'testing';
     }
 
     /**
@@ -552,10 +558,11 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
      * Register a service provider with the application.
      *
      * @param  \Illuminate\Support\ServiceProvider|string  $provider
+     * @param  array  $options
      * @param  bool   $force
      * @return \Illuminate\Support\ServiceProvider
      */
-    public function register($provider, $force = false)
+    public function register($provider, $options = [], $force = false)
     {
         if (($registered = $this->getProvider($provider)) && ! $force) {
             return $registered;

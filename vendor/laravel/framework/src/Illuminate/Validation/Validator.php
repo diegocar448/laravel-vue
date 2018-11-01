@@ -167,7 +167,7 @@ class Validator implements ValidatorContract
     protected $dependentRules = [
         'RequiredWith', 'RequiredWithAll', 'RequiredWithout', 'RequiredWithoutAll',
         'RequiredIf', 'RequiredUnless', 'Confirmed', 'Same', 'Different', 'Unique',
-        'Before', 'After', 'BeforeOrEqual', 'AfterOrEqual', 'Gt', 'Lt', 'Gte', 'Lte',
+        'Before', 'After', 'BeforeOrEqual', 'AfterOrEqual',
     ];
 
     /**
@@ -175,7 +175,7 @@ class Validator implements ValidatorContract
      *
      * @var array
      */
-    protected $sizeRules = ['Size', 'Between', 'Min', 'Max', 'Gt', 'Lt', 'Gte', 'Lte'];
+    protected $sizeRules = ['Size', 'Between', 'Min', 'Max'];
 
     /**
      * The numeric related validation rules.
@@ -306,19 +306,11 @@ class Validator implements ValidatorContract
             throw new ValidationException($this);
         }
 
-        $results = [];
+        $data = collect($this->getData());
 
-        $missingValue = Str::random(10);
-
-        foreach (array_keys($this->getRules()) as $key) {
-            $value = data_get($this->getData(), $key, $missingValue);
-
-            if ($value !== $missingValue) {
-                Arr::set($results, $key, $value);
-            }
-        }
-
-        return $results;
+        return $data->only(collect($this->getRules())->keys()->map(function ($rule) {
+            return Str::contains($rule, '.') ? explode('.', $rule)[0] : $rule;
+        })->unique())->toArray();
     }
 
     /**
@@ -332,7 +324,7 @@ class Validator implements ValidatorContract
     {
         $this->currentRule = $rule;
 
-        [$rule, $parameters] = ValidationRuleParser::parse($rule);
+        list($rule, $parameters) = ValidationRuleParser::parse($rule);
 
         if ($rule == '') {
             return;
@@ -501,7 +493,7 @@ class Validator implements ValidatorContract
         $data = ValidationData::initializeAndGatherData($attribute, $this->data);
 
         return array_key_exists($attribute, $data)
-                    || array_key_exists($attribute, $this->data);
+                    || in_array($attribute, array_keys($this->data));
     }
 
     /**
@@ -566,7 +558,7 @@ class Validator implements ValidatorContract
         }
 
         if (isset($this->failedRules[$attribute]) &&
-            array_key_exists('uploaded', $this->failedRules[$attribute])) {
+            in_array('uploaded', array_keys($this->failedRules[$attribute]))) {
             return true;
         }
 
@@ -586,12 +578,8 @@ class Validator implements ValidatorContract
      * @param  array   $parameters
      * @return void
      */
-    public function addFailure($attribute, $rule, $parameters = [])
+    protected function addFailure($attribute, $rule, $parameters)
     {
-        if (! $this->messages) {
-            $this->passes();
-        }
-
         $this->messages->add($attribute, $this->makeReplacements(
             $this->getMessage($attribute, $rule), $attribute, $rule, $parameters
         ));
@@ -715,7 +703,7 @@ class Validator implements ValidatorContract
         $rules = (array) $rules;
 
         foreach ($this->rules[$attribute] as $rule) {
-            [$rule, $parameters] = ValidationRuleParser::parse($rule);
+            list($rule, $parameters) = ValidationRuleParser::parse($rule);
 
             if (in_array($rule, $rules)) {
                 return [$rule, $parameters];
@@ -1133,7 +1121,7 @@ class Validator implements ValidatorContract
      */
     protected function callClassBasedExtension($callback, $parameters)
     {
-        [$class, $method] = Str::parseCallback($callback, 'validate');
+        list($class, $method) = Str::parseCallback($callback, 'validate');
 
         return call_user_func_array([$this->container->make($class), $method], $parameters);
     }

@@ -9,21 +9,29 @@ use App\Http\Requests\StoreUpdateCategoryFormRequest;
 
 class CategoryController extends Controller
 {
-    private $category;
-    private $totalPage = 10;
+    private $category, $totalPage = 10;
 
     public function __construct(Category $category)
     {
         $this->category = $category;
     }
 
-    public function index(Category $category, Request $request)
+
+    public function index(Request $request)
     {
         $categories = $this->category->getResults($request->name);
 
         return response()->json($categories);
     }
 
+
+    public function show($id)
+    {
+        if (!$category = $this->category->find($id))
+            return response()->json(['error' => 'Not found'], 404);
+
+        return response()->json($category);
+    }
 
 
     public function store(StoreUpdateCategoryFormRequest $request)
@@ -34,49 +42,33 @@ class CategoryController extends Controller
     }
 
 
-
     public function update(StoreUpdateCategoryFormRequest $request, $id)
     {
-        
-        
-        if(!$category = $this->category->find($id))
-        {
+        if (!$category = $this->category->find($id))
             return response()->json(['error' => 'Not found'], 404);
-        }
 
         $category->update($request->all());
 
         return response()->json($category);
     }
 
+
     public function destroy($id)
     {
-        if(!$category = $this->category->find($id))
-        {
+        if (!$category = $this->category->find($id))
             return response()->json(['error' => 'Not found'], 404);
-        }
+
         $category->delete();
 
-        return response()->json([], 204);
+        return response()->json(['success' => true], 204);
     }
 
-    public function show($id)
-    {
-        if(!$category = $this->category->find($id))
-        {
-            return response()->json(['error' => 'Not found'], 404);
-        }
-        return response()->json($category);
-    }
 
-    //vai devolver todos os produtos de uma categoria
     public function products($id)
     {
-        if(!$category = $this->category->find($id))
-        {
+        if (!$category = $this->category->find($id))
             return response()->json(['error' => 'Not found'], 404);
-        }
-        //dd($category);
+        
         $products = $category->products()->paginate($this->totalPage);
 
         return response()->json([

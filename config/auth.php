@@ -42,7 +42,6 @@ return [
         ],
 
         'api' => [
-            //alterar de token para jwt
             'driver' => 'jwt',
             'provider' => 'users',
         ],

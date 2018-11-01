@@ -153,7 +153,7 @@ class Str
      */
     public static function is($pattern, $value)
     {
-        $patterns = Arr::wrap($pattern);
+        $patterns = is_array($pattern) ? $pattern : (array) $pattern;
 
         if (empty($patterns)) {
             return false;
@@ -420,7 +420,7 @@ class Str
         $title = static::ascii($title, $language);
 
         // Convert all dashes/underscores into separator
-        $flip = $separator === '-' ? '_' : '-';
+        $flip = $separator == '-' ? '_' : '-';
 
         $title = preg_replace('!['.preg_quote($flip).']+!u', $separator, $title);
 
@@ -524,7 +524,7 @@ class Str
     /**
      * Generate a UUID (version 4).
      *
-     * @return \Ramsey\Uuid\UuidInterface
+     * @return \Ramsey\Uuid\Uuid
      */
     public static function uuid()
     {
@@ -534,7 +534,7 @@ class Str
     /**
      * Generate a time-ordered UUID (version 4).
      *
-     * @return \Ramsey\Uuid\UuidInterface
+     * @return \Ramsey\Uuid\Uuid
      */
     public static function orderedUuid()
     {

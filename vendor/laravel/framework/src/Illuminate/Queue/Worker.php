@@ -123,7 +123,7 @@ class Worker
             // Finally, we will check to see if we have exceeded our memory limits or if
             // the queue should restart based on other indications. If so, we'll stop
             // this worker and let whatever is "monitoring" it restart the process.
-            $this->stopIfNecessary($options, $lastRestart, $job);
+            $this->stopIfNecessary($options, $lastRestart);
         }
     }
 
@@ -194,17 +194,16 @@ class Worker
      *
      * @param  \Illuminate\Queue\WorkerOptions  $options
      * @param  int  $lastRestart
-     * @param  mixed  $job
      */
-    protected function stopIfNecessary(WorkerOptions $options, $lastRestart, $job = null)
+    protected function stopIfNecessary(WorkerOptions $options, $lastRestart)
     {
         if ($this->shouldQuit) {
-            $this->stop();
-        } elseif ($this->memoryExceeded($options->memory)) {
+            $this->kill();
+        }
+
+        if ($this->memoryExceeded($options->memory)) {
             $this->stop(12);
         } elseif ($this->queueShouldRestart($lastRestart)) {
-            $this->stop();
-        } elseif ($options->stopWhenEmpty && is_null($job)) {
             $this->stop();
         }
     }
@@ -252,14 +251,10 @@ class Worker
             $this->exceptions->report($e);
 
             $this->stopWorkerIfLostConnection($e);
-
-            $this->sleep(1);
         } catch (Throwable $e) {
             $this->exceptions->report($e = new FatalThrowableError($e));
 
             $this->stopWorkerIfLostConnection($e);
-
-            $this->sleep(1);
         }
     }
 
@@ -546,7 +541,7 @@ class Worker
      */
     public function memoryExceeded($memoryLimit)
     {
-        return (memory_get_usage(true) / 1024 / 1024) >= $memoryLimit;
+        return (memory_get_usage() / 1024 / 1024) >= $memoryLimit;
     }
 
     /**
@@ -557,7 +552,7 @@ class Worker
      */
     public function stop($status = 0)
     {
-        $this->events->dispatch(new Events\WorkerStopping($status));
+        $this->events->dispatch(new Events\WorkerStopping);
 
         exit($status);
     }
@@ -570,7 +565,7 @@ class Worker
      */
     public function kill($status = 0)
     {
-        $this->events->dispatch(new Events\WorkerStopping($status));
+        $this->events->dispatch(new Events\WorkerStopping);
 
         if (extension_loaded('posix')) {
             posix_kill(getmypid(), SIGKILL);

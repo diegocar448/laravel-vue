@@ -143,17 +143,6 @@ class Mailer implements MailerContract, MailQueueContract
      * @param  mixed  $users
      * @return \Illuminate\Mail\PendingMail
      */
-    public function cc($users)
-    {
-        return (new PendingMail($this))->cc($users);
-    }
-
-    /**
-     * Begin the process of mailing a mailable class instance.
-     *
-     * @param  mixed  $users
-     * @return \Illuminate\Mail\PendingMail
-     */
     public function bcc($users)
     {
         return (new PendingMail($this))->bcc($users);
@@ -208,17 +197,17 @@ class Mailer implements MailerContract, MailQueueContract
         // First we need to parse the view, which could either be a string or an array
         // containing both an HTML and plain text versions of the view which should
         // be used when sending an e-mail. We will extract both of them out here.
-        [$view, $plain, $raw] = $this->parseView($view);
+        list($view, $plain, $raw) = $this->parseView($view);
 
         $data['message'] = $this->createMessage();
 
-        return $this->renderView($view ?: $plain, $data);
+        return $this->renderView($view, $data);
     }
 
     /**
      * Send a new message using a view.
      *
-     * @param  string|array|\Illuminate\Contracts\Mail\Mailable  $view
+     * @param  string|array|MailableContract  $view
      * @param  array  $data
      * @param  \Closure|string  $callback
      * @return void
@@ -232,7 +221,7 @@ class Mailer implements MailerContract, MailQueueContract
         // First we need to parse the view, which could either be a string or an array
         // containing both an HTML and plain text versions of the view which should
         // be used when sending an e-mail. We will extract both of them out here.
-        [$view, $plain, $raw] = $this->parseView($view);
+        list($view, $plain, $raw) = $this->parseView($view);
 
         $data['message'] = $message = $this->createMessage();
 
@@ -247,7 +236,7 @@ class Mailer implements MailerContract, MailQueueContract
         // message. This is primarily useful during local development in which each
         // message should be delivered into a single mail address for inspection.
         if (isset($this->to['address'])) {
-            $this->setGlobalToAndRemoveCcAndBcc($message);
+            $this->setGlobalTo($message);
         }
 
         // Next we will determine if the message should be sent. We give the developer
@@ -358,7 +347,7 @@ class Mailer implements MailerContract, MailQueueContract
      * @param  \Illuminate\Mail\Message  $message
      * @return void
      */
-    protected function setGlobalToAndRemoveCcAndBcc($message)
+    protected function setGlobalTo($message)
     {
         $message->to($this->to['address'], $this->to['name'], true);
         $message->cc(null, null, true);
@@ -368,11 +357,9 @@ class Mailer implements MailerContract, MailQueueContract
     /**
      * Queue a new e-mail message for sending.
      *
-     * @param  string|array|\Illuminate\Contracts\Mail\Mailable  $view
+     * @param  string|array|MailableContract  $view
      * @param  string|null  $queue
      * @return mixed
-     *
-     * @throws \InvalidArgumentException
      */
     public function queue($view, $queue = null)
     {
@@ -413,11 +400,9 @@ class Mailer implements MailerContract, MailQueueContract
      * Queue a new e-mail message for sending after (n) seconds.
      *
      * @param  \DateTimeInterface|\DateInterval|int  $delay
-     * @param  string|array|\Illuminate\Contracts\Mail\Mailable  $view
+     * @param  string|array|MailableContract  $view
      * @param  string|null  $queue
      * @return mixed
-     *
-     * @throws \InvalidArgumentException
      */
     public function later($delay, $view, $queue = null)
     {
@@ -471,7 +456,7 @@ class Mailer implements MailerContract, MailQueueContract
      * Send a Swift Message instance.
      *
      * @param  \Swift_Message  $message
-     * @return int|null
+     * @return void
      */
     protected function sendSwiftMessage($message)
     {

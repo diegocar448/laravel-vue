@@ -9,7 +9,7 @@ abstract class ServiceProvider
     /**
      * The application instance.
      *
-     * @var \Illuminate\Contracts\Foundation\Application|\Illuminate\Foundation\Application
+     * @var \Illuminate\Contracts\Foundation\Application
      */
     protected $app;
 
@@ -37,7 +37,7 @@ abstract class ServiceProvider
     /**
      * Create a new service provider instance.
      *
-     * @param  \Illuminate\Contracts\Foundation\Application|\Illuminate\Foundation\Application  $app
+     * @param  \Illuminate\Contracts\Foundation\Application  $app
      * @return void
      */
     public function __construct($app)
@@ -75,7 +75,7 @@ abstract class ServiceProvider
     /**
      * Register a view file namespace.
      *
-     * @param  string|array  $path
+     * @param  string  $path
      * @param  string  $namespace
      * @return void
      */

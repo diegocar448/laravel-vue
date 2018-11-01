@@ -2,6 +2,7 @@
 
 namespace Illuminate\Database\Schema\Grammars;
 
+use RuntimeException;
 use Illuminate\Support\Fluent;
 use Illuminate\Database\Schema\Blueprint;
 
@@ -205,17 +206,6 @@ class PostgresGrammar extends Grammar
     }
 
     /**
-     * Compile the SQL needed to drop all views.
-     *
-     * @param  string  $views
-     * @return string
-     */
-    public function compileDropAllViews($views)
-    {
-        return 'drop view "'.implode('","', $views).'" cascade';
-    }
-
-    /**
      * Compile the SQL needed to retrieve all table names.
      *
      * @param  string  $schema
@@ -224,17 +214,6 @@ class PostgresGrammar extends Grammar
     public function compileGetAllTables($schema)
     {
         return "select tablename from pg_catalog.pg_tables where schemaname = '{$schema}'";
-    }
-
-    /**
-     * Compile the SQL needed to retrieve all view names.
-     *
-     * @param  string  $schema
-     * @return string
-     */
-    public function compileGetAllViews($schema)
-    {
-        return "select viewname from pg_catalog.pg_views where schemaname = '{$schema}'";
     }
 
     /**
@@ -329,21 +308,6 @@ class PostgresGrammar extends Grammar
         $from = $this->wrapTable($blueprint);
 
         return "alter table {$from} rename to ".$this->wrapTable($command->to);
-    }
-
-    /**
-     * Compile a rename index command.
-     *
-     * @param  \Illuminate\Database\Schema\Blueprint $blueprint
-     * @param  \Illuminate\Support\Fluent $command
-     * @return string
-     */
-    public function compileRenameIndex(Blueprint $blueprint, Fluent $command)
-    {
-        return sprintf('alter index %s rename to %s',
-            $this->wrap($command->from),
-            $this->wrap($command->to)
-        );
     }
 
     /**
@@ -445,7 +409,7 @@ class PostgresGrammar extends Grammar
      */
     protected function typeInteger(Fluent $column)
     {
-        return $this->generatableColumn('integer', $column);
+        return $column->autoIncrement ? 'serial' : 'integer';
     }
 
     /**
@@ -456,7 +420,7 @@ class PostgresGrammar extends Grammar
      */
     protected function typeBigInteger(Fluent $column)
     {
-        return $this->generatableColumn('bigint', $column);
+        return $column->autoIncrement ? 'bigserial' : 'bigint';
     }
 
     /**
@@ -467,7 +431,7 @@ class PostgresGrammar extends Grammar
      */
     protected function typeMediumInteger(Fluent $column)
     {
-        return $this->generatableColumn('integer', $column);
+        return $column->autoIncrement ? 'serial' : 'integer';
     }
 
     /**
@@ -478,7 +442,7 @@ class PostgresGrammar extends Grammar
      */
     protected function typeTinyInteger(Fluent $column)
     {
-        return $this->generatableColumn('smallint', $column);
+        return $column->autoIncrement ? 'smallserial' : 'smallint';
     }
 
     /**
@@ -489,42 +453,7 @@ class PostgresGrammar extends Grammar
      */
     protected function typeSmallInteger(Fluent $column)
     {
-        return $this->generatableColumn('smallint', $column);
-    }
-
-    /**
-     * Create the column definition for a generatable column.
-     *
-     * @param  string  $type
-     * @param  \Illuminate\Support\Fluent  $column
-     * @return string
-     */
-    protected function generatableColumn($type, Fluent $column)
-    {
-        if (! $column->autoIncrement && is_null($column->generatedAs)) {
-            return $type;
-        }
-
-        if ($column->autoIncrement && is_null($column->generatedAs)) {
-            return with([
-                'integer' => 'serial',
-                'bigint' => 'bigserial',
-                'smallint' => 'smallserial',
-            ])[$type];
-        }
-
-        $options = '';
-
-        if (! is_bool($column->generatedAs) && ! empty($column->generatedAs)) {
-            $options = sprintf(' (%s)', $column->generatedAs);
-        }
-
-        return sprintf(
-            '%s generated %s as identity%s',
-            $type,
-            $column->always ? 'always' : 'by default',
-            $options
-        );
+        return $column->autoIncrement ? 'smallserial' : 'smallint';
     }
 
     /**
@@ -759,11 +688,11 @@ class PostgresGrammar extends Grammar
      * Create the column definition for a spatial Geometry type.
      *
      * @param  \Illuminate\Support\Fluent  $column
-     * @return string
+     * @throws \RuntimeException
      */
     protected function typeGeometry(Fluent $column)
     {
-        return $this->formatPostGisType('geometry');
+        throw new RuntimeException('The database driver in use does not support the Geometry spatial column type.');
     }
 
     /**
@@ -889,7 +818,7 @@ class PostgresGrammar extends Grammar
      */
     protected function modifyIncrement(Blueprint $blueprint, Fluent $column)
     {
-        if ((in_array($column->type, $this->serials) || ($column->generatedAs !== null)) && $column->autoIncrement) {
+        if (in_array($column->type, $this->serials) && $column->autoIncrement) {
             return ' primary key';
         }
     }

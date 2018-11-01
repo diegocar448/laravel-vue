@@ -10,31 +10,21 @@ class HashManager extends Manager implements Hasher
     /**
      * Create an instance of the Bcrypt hash Driver.
      *
-     * @return \Illuminate\Hashing\BcryptHasher
+     * @return BcryptHasher
      */
     public function createBcryptDriver()
     {
-        return new BcryptHasher($this->app['config']['hashing.bcrypt'] ?? []);
+        return new BcryptHasher;
     }
 
     /**
-     * Create an instance of the Argon2i hash Driver.
+     * Create an instance of the Argon2 hash Driver.
      *
-     * @return \Illuminate\Hashing\ArgonHasher
+     * @return ArgonHasher
      */
     public function createArgonDriver()
     {
-        return new ArgonHasher($this->app['config']['hashing.argon'] ?? []);
-    }
-
-    /**
-     * Create an instance of the Argon2id hash Driver.
-     *
-     * @return \Illuminate\Hashing\Argon2IdHasher
-     */
-    public function createArgon2idDriver()
-    {
-        return new Argon2IdHasher($this->app['config']['hashing.argon'] ?? []);
+        return new ArgonHasher;
     }
 
     /**

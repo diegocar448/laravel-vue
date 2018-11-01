@@ -2,24 +2,23 @@
 <html lang="{{ app()->getLocale() }}">
     <head>
         <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>Laravel</title>
 
         <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
 
-        <!-- Aqui adicionamos o meta tag para corrigir o erro csrf_token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
-
 
         <!-- Styles -->
         <style>
             html, body {
                 background-color: #fff;
                 color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
+                font-family: 'Raleway', sans-serif;
+                font-weight: 100;
                 height: 100vh;
                 margin: 0;
             }
@@ -69,18 +68,14 @@
     </head>
     <body>
         <div id="app" class="flex-center position-ref full-height">
-
-            <admin-component></admin-component>
+            
+            <app-component></app-component>
+            
 
             
         </div>
 
 
-
-
-
-        <!-- Aqui ativações o vuejs no projeto laravel -->
-        <!-- Usamos o helper mix para incluir o nosso arquivo -->
-        <script src="{{ mix('/js/app.js') }}"></script>
+    <script src="{{ mix('/js/app.js') }}"></script>
     </body>
 </html>
