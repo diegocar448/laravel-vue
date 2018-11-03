@@ -1,13 +1,13 @@
 <template>
     <div>
-        <!-- <ul>
+        <ul>
             <li>
-                <router-link to="{name: 'admin.dashboard'}">Dashboard</router-link>                
+                <router-link :to="{name: 'admin.dashboard'}">Dashboard</router-link>                
             </li>
             <li>
-                <router-link to="{name: 'admin.categories'}">Categorias</router-link>
+                <router-link :to="{name: 'admin.categories'}">Categorias</router-link>
             </li>
-        </ul> -->
+        </ul>
 
         <router-view></router-view>
     </div>

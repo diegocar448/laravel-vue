@@ -69,7 +69,8 @@
     <body>
         <div id="app">
             
-            <admin-component></admin-component>
+            {{-- <admin-component></admin-component> --}}
+            <route-view></route-view>
                  
 
             
