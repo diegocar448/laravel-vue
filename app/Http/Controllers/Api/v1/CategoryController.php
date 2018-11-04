@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Http\Requests\StoreUpdateCategoryFormRequest;
+use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
@@ -19,7 +20,10 @@ class CategoryController extends Controller
 
     public function index(Request $request)
     {
+
+            
         $categories = $this->category->getResults($request->name);
+
 
         return response()->json($categories);
     }
@@ -70,6 +74,8 @@ class CategoryController extends Controller
             return response()->json(['error' => 'Not found'], 404);
         
         $products = $category->products()->paginate($this->totalPage);
+
+       dd("Entrou");
 
         return response()->json([
             'category' => $category,

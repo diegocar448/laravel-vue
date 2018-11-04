@@ -11,6 +11,8 @@ class Product extends Model
 
     public function getResults($data, $total)
     {
+
+        
         if (!isset($data['filter']) && !isset($data['name']) && !isset($data['description']))
             return $this->paginate($total);
 
