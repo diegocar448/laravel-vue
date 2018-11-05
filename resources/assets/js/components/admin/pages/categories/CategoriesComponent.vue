@@ -1,6 +1,6 @@
 <template>
     <div>
-        <table>
+        <table class="table table-dark">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -9,10 +9,10 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>...</td>
-                    <td>...</td>
-                    <td>...</td>
+                <tr v-for="(category, index) in categories.data" :key="index">
+                    <td v-text="category.id"></td>
+                    <td v-text="category.name"></td>
+                    <td></td>
                 </tr>
             </tbody>
 
@@ -31,11 +31,20 @@ export default {
     created(){
         this.loadCategories()
     },
+    data(){
+        return {
+            categories:{
+                data:[]
+            }
+        }
+    },
     methods:{
         loadCategories(){
             axios.get('/api/v1/categories')
                 .then(response => {
                     console.log(response)
+
+                    this.categories = response
                 })
                 .catch(errors => {
                     console.log(errors)

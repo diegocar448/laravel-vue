@@ -33306,7 +33306,7 @@ exports = module.exports = __webpack_require__(13)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -33352,11 +33352,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     created: function created() {
         this.loadCategories();
     },
+    data: function data() {
+        return {
+            categories: {
+                data: []
+            }
+        };
+    },
 
     methods: {
         loadCategories: function loadCategories() {
+            var _this = this;
+
             __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('/api/v1/categories').then(function (response) {
                 console.log(response);
+
+                _this.categories = response;
             }).catch(function (errors) {
                 console.log(errors);
             });
@@ -33373,34 +33384,37 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", [
+    _c("table", { staticClass: "table table-dark" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c(
+        "tbody",
+        _vm._l(_vm.categories.data, function(category, index) {
+          return _c("tr", { key: index }, [
+            _c("td", { domProps: { textContent: _vm._s(category.id) } }),
+            _vm._v(" "),
+            _c("td", { domProps: { textContent: _vm._s(category.name) } }),
+            _vm._v(" "),
+            _c("td")
+          ])
+        })
+      )
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("table", [
-        _c("thead", [
-          _c("tr", [
-            _c("th", [_vm._v("ID")]),
-            _vm._v(" "),
-            _c("th", [_vm._v("NOME")]),
-            _vm._v(" "),
-            _c("th", { attrs: { width: "100" } }, [_vm._v("AÇÕES")])
-          ])
-        ]),
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("ID")]),
         _vm._v(" "),
-        _c("tbody", [
-          _c("tr", [
-            _c("td", [_vm._v("...")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("...")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("...")])
-          ])
-        ])
+        _c("th", [_vm._v("NOME")]),
+        _vm._v(" "),
+        _c("th", { attrs: { width: "100" } }, [_vm._v("AÇÕES")])
       ])
     ])
   }
