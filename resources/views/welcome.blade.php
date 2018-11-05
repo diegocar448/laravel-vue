@@ -69,7 +69,7 @@
     <body>
         <div id="app">
             
-            <!-- <admin-component></admin-component> -->
+            <preloader-component></preloader-component>
             <router-view></router-view>
                  
 

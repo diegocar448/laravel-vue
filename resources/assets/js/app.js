@@ -8,6 +8,7 @@ import store from './vuex/store'
  * Components globais
  */
 Vue.component('admin-component', require('./components/admin/AdminComponent'))
+Vue.component('preloader-component', require('./components/layouts/PreloaderComponent'))
 
 const app = new Vue({
     router,
