@@ -12,6 +12,9 @@ export default {
     },
     actions: {
         loadCategories(context){
+
+            context.commit('PRELOADER', true)
+
             axios.get('/api/v1/categories')
                 .then(response => {
                     console.log(response)
@@ -21,6 +24,8 @@ export default {
                 .catch(errors => {
                     console.log(errors)
                 })
+
+                .finally(() => context.commit('PRELOADER', false))
         }
 
     },
