@@ -3,7 +3,6 @@ import VueRouter from 'vue-router'
 
 import AdminComponent from '../components/admin/AdminComponent'
 import CategoriesComponent from '../components/admin/pages/categories/CategoriesComponent'
-import AddCategoryComponent from '../components/admin/pages/categories/AddCategoryComponent'
 import DashboardComponent from '../components/admin/pages/dashboard/DashboardComponent'
 
 Vue.use(VueRouter)
@@ -22,13 +21,7 @@ const routes = [
                 path: 'categories',
                 component: CategoriesComponent,
                 name: 'admin.categories'
-            },
-            {
-                path: 'categories/create',
-                component: AddCategoryComponent,
-                name: 'admin.categories.create'
             }
-            
         ]
     },
     
