@@ -24,8 +24,21 @@ export default {
                 .catch(errors => {
                     console.log(errors)
                 })
-
                 .finally(() => context.commit('PRELOADER', false))
+        },
+
+        storeCategory(context, params){
+            context.commit('PRELOADER', true)
+
+            //retorna informações se deu certo ou não
+            return new Promise((resolve, reject)=> {
+                axios.post('/api/v1/categories', params)
+                    .then(response => resolve())
+                    .catch(error => reject(error))
+                    .finally(() => context.commit('PRELOADER', false))                
+            })
+
+            
         }
 
     },
