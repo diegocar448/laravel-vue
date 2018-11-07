@@ -35083,7 +35083,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -35120,13 +35120,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
     created: function created() {
-        var _this = this;
-
-        this.$store.dispatch('loadCategory', this.id).then(function (response) {
-            return _this.category = response;
-        }).catch(function (error) {
-            console.log(error);
-        });
+        this.loadCategory();
     },
     data: function data() {
         return {
@@ -35134,6 +35128,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
 
+
+    methods: {
+        loadCategory: function loadCategory() {
+            var _this = this;
+
+            this.$store.dispatch('loadCategory', this.id).then(function (response) {
+                return _this.category = response;
+            }).catch(function (error) {
+                _this.$snotify.error('Categoria não encontrada', '404');
+                _this.$router.push({ name: 'admin.categories' });
+                console.log(error);
+            });
+        }
+    },
     components: {
         formCat: __WEBPACK_IMPORTED_MODULE_0__partials_FormCategoryComponent___default.a
     }
@@ -35314,8 +35322,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var action = this.updating ? 'updateCategory' : 'storeCategory';
 
             this.$store.dispatch(action, this.category).then(function () {
-                return _this.$router.push({ name: 'admin.categories' });
+                _this.$snotify.success('Sucesso ao cadastrar');
+                _this.$router.push({ name: 'admin.categories' });
             }).catch(function (error) {
+                _this.$snotify.error('Algo Errado', 'Erro');
                 console.log(error.response.data.errors);
                 _this.errors = error.response.data.errors;
             });
