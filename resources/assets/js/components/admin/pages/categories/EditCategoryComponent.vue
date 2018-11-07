@@ -4,7 +4,7 @@
 
         <form-cat 
             :category="category"
-            updating="true">            
+            :updating="true">            
         </form-cat>
         
     </div>    

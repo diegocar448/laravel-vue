@@ -34805,6 +34805,17 @@ var index_esm = {
                     return context.commit('PRELOADER', false);
                 });
             });
+        },
+        updateCategory: function updateCategory(context, params) {
+            return new Promise(function (resolve, reject) {
+                axios.put('/api/v1/categories/' + params.id, params).then(function (response) {
+                    return resolve();
+                }).catch(function (error) {
+                    return reject(error);
+                }).finally(function () {
+                    return context.commit('PRELOADER', false);
+                });
+            });
         }
     },
     getters: {}
@@ -35138,7 +35149,7 @@ var render = function() {
     [
       _c("h1", [_vm._v("Editar Categoria")]),
       _vm._v(" "),
-      _c("form-cat", { attrs: { category: _vm.category, updating: "true" } })
+      _c("form-cat", { attrs: { category: _vm.category, updating: true } })
     ],
     1
   )
@@ -35239,7 +35250,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -35274,6 +35285,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             type: Object | Array,
             default: function _default() {
                 return {
+                    id: '',
                     name: ''
                 };
             }
