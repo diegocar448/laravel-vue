@@ -35254,7 +35254,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n.has-error[data-v-d8a3af42]{color:red;\n}\n.has-error input[data-v-d8a3af42]{border:1px solid red;\n}\r\n\r\n", ""]);
 
 // exports
 
@@ -35265,6 +35265,7 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
 //
 //
 //
@@ -35300,6 +35301,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             default: false
         }
     },
+    data: function data() {
+        return {
+            errors: {}
+        };
+    },
+
     methods: {
         onSubmit: function onSubmit() {
             var _this = this;
@@ -35308,7 +35315,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             this.$store.dispatch(action, this.category).then(function () {
                 return _this.$router.push({ name: 'admin.categories' });
-            }).catch();
+            }).catch(function (error) {
+                console.log(error.response.data.errors);
+                _this.errors = error.response.data.errors;
+            });
         }
     }
 
@@ -35335,7 +35345,11 @@ var render = function() {
         }
       },
       [
-        _c("div", { staticClass: "form-group" }, [
+        _c("div", { class: ["form-group", { "has-error": _vm.errors.name }] }, [
+          _vm.errors.name
+            ? _c("div", [_vm._v(_vm._s(_vm.errors.name[0]))])
+            : _vm._e(),
+          _vm._v(" "),
           _c("input", {
             directives: [
               {
