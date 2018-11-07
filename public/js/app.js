@@ -33417,7 +33417,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -33462,17 +33462,54 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     created: function created() {
-        this.$store.dispatch('loadCategories');
+        //this.$store.dispatch('loadCategories')
+        this.loadCategories();
     },
 
     computed: {
         categories: function categories() {
             return this.$store.state.categories.items;
+        }
+    },
+    methods: {
+        loadCategories: function loadCategories() {
+            this.$store.dispatch('loadCategories');
+        },
+        confirmDestroy: function confirmDestroy(category) {
+            var _this = this;
+
+            this.$snotify.error('Deseja realmente deletar a categoria: ' + category.name, 'Deletar?', {
+                //timout: 10000,
+                showProgressBar: true,
+                closeOnClick: true,
+                buttons: [{ text: 'Não', action: function action() {
+                        return console.log('Não deletou...');
+                    } }, { text: 'Sim', action: function action() {
+                        return _this.destroy(category);
+                    } }]
+            });
+        },
+        destroy: function destroy(category) {
+            var _this2 = this;
+
+            this.$store.dispatch('destroyCategory', category.id).then(function () {
+                _this2.$snotify.success('Sucesso ao deletar a categoria: ' + category.name);
+
+                _this2.loadCategories();
+            }).catch(function (error) {
+                console.log(error);
+
+                _this2.$snotify.error('Erro ao deletar a categoria', 'Falha');
+            });
         }
     }
 
@@ -33526,6 +33563,21 @@ var render = function() {
                       }
                     },
                     [_vm._v("Editar")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "a",
+                    {
+                      staticClass: "btn btn-danger",
+                      attrs: { href: "#" },
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          _vm.confirmDestroy(category)
+                        }
+                      }
+                    },
+                    [_vm._v("Remover")]
                   )
                 ],
                 1
@@ -33549,7 +33601,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("NOME")]),
         _vm._v(" "),
-        _c("th", { attrs: { width: "100" } }, [_vm._v("AÇÕES")])
+        _c("th", { attrs: { width: "200" } }, [_vm._v("AÇÕES")])
       ])
     ])
   }
@@ -34820,6 +34872,18 @@ var index_esm = {
                     return context.commit('PRELOADER', false);
                 });
             });
+        },
+        destroyCategory: function destroyCategory(context, id) {
+            context.commit('PRELOADER', true);
+
+            return new Promise(function (resolve, reject) {
+                axios.delete('/api/v1/categories/' + id).then(function (response) {
+                    return resolve();
+                }).catch(function (error) {
+                    return reject(error);
+                });
+                //.finally(() => context.commit('PRELOADER', false))
+            });
         }
     },
     getters: {}
@@ -35273,6 +35337,7 @@ exports.push([module.i, "\n.has-error[data-v-d8a3af42]{color:red;\n}\n.has-error
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
 //
 //
 //
