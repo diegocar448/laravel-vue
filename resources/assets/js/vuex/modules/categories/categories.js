@@ -27,6 +27,18 @@ export default {
                 .finally(() => context.commit('PRELOADER', false))
         },
 
+        //retornar as informções para editar 1 usuario especifico
+        loadCategory(context, id){
+            context.commit('PRELOADER', true)
+
+            return new Promise((resolve, reject) => {
+                axios.get(`/api/v1/categories/${id}`)
+                    .then(response => resolve(response.data))
+                    .catch(error => reject(error))
+                    .finally(() => context.commit('PRELOADER', false))
+            })
+        },
+
         storeCategory(context, params){
             context.commit('PRELOADER', true)
 
@@ -36,9 +48,7 @@ export default {
                     .then(response => resolve())
                     .catch(error => reject(error))
                     .finally(() => context.commit('PRELOADER', false))                
-            })
-
-            
+            })            
         }
 
     },
