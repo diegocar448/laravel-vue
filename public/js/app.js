@@ -33488,11 +33488,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             this.$snotify.error('Deseja realmente deletar a categoria: ' + category.name, 'Deletar?', {
-                //timout: 10000,
+                timout: 10000,
                 showProgressBar: true,
                 closeOnClick: true,
                 buttons: [{ text: 'Não', action: function action() {
-                        return console.log('Não deletou...');
+                        return closeOnClick;
                     } }, { text: 'Sim', action: function action() {
                         return _this.destroy(category);
                     } }]
