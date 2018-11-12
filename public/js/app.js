@@ -37250,7 +37250,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -37268,7 +37268,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+    created: function created() {
+        this.loadProducts();
+    },
+
+    methods: {
+        loadProducts: function loadProducts() {
+            this.$store.dispatch('loadProducts');
+        }
+    }
+
+});
 
 /***/ }),
 /* 93 */
@@ -37323,14 +37334,38 @@ if (false) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = ({});
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__config_configs__ = __webpack_require__(99);
+
+
+
+var RESOURCE = 'products';
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    loadProducts: function loadProducts(context) {
+        context.commit('PRELOADER', true);
+
+        __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('' + __WEBPACK_IMPORTED_MODULE_1__config_configs__["a" /* URL_BASE */] + RESOURCE).then(function (response) {
+            return context.commit('LOAD_PRODUCTS', response.data);
+        }).catch(function (error) {
+            return console.log(error);
+        }).finally(function () {
+            return context.commit('PRELOADER', false);
+        });
+    }
+});
 
 /***/ }),
 /* 96 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = ({});
+/* harmony default export */ __webpack_exports__["a"] = ({
+   LOAD_PRODUCTS: function LOAD_PRODUCTS(state, products) {
+      state.items = products;
+   }
+});
 
 /***/ }),
 /* 97 */
@@ -37345,8 +37380,19 @@ if (false) {
 
 "use strict";
 /* harmony default export */ __webpack_exports__["a"] = ({
-    items: {}
+    items: {
+        data: []
+    }
 });
+
+/***/ }),
+/* 99 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return URL_BASE; });
+//criar prefix das rotas caso precise todas em um unico arquivo
+var URL_BASE = '/api/v1/';
 
 /***/ })
 /******/ ]);
