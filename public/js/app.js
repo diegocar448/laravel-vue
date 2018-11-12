@@ -33417,7 +33417,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -33430,6 +33430,8 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__partials_SearchCategoryComponent__ = __webpack_require__(84);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__partials_SearchCategoryComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__partials_SearchCategoryComponent__);
 //
 //
 //
@@ -33466,6 +33468,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
 
 
 
@@ -33473,6 +33489,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     created: function created() {
         //this.$store.dispatch('loadCategories')
         this.loadCategories();
+    },
+    data: function data() {
+        return {
+            name: ''
+        };
     },
 
     computed: {
@@ -33482,7 +33503,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     methods: {
         loadCategories: function loadCategories() {
-            this.$store.dispatch('loadCategories');
+            this.$store.dispatch('loadCategories', { name: this.name });
         },
         confirmDestroy: function confirmDestroy(category) {
             var _this = this;
@@ -33510,7 +33531,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
                 _this2.$snotify.error('Erro ao deletar a categoria', 'Falha');
             });
+        },
+        search: function search(filter) {
+            this.name = filter;
+
+            this.loadCategories();
         }
+    },
+    components: {
+        search: __WEBPACK_IMPORTED_MODULE_1__partials_SearchCategoryComponent___default.a
     }
 
 });
@@ -33523,72 +33552,84 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c("h1", [_vm._v("Listagem das Categorias")]),
-      _vm._v(" "),
+  return _c("div", [
+    _c("h1", [_vm._v("Listagem das Categorias")]),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
       _c(
-        "router-link",
-        {
-          staticClass: "btn btn-success",
-          attrs: { to: { name: "admin.categories.create" } }
-        },
-        [_vm._v("Cadastrar")]
+        "div",
+        { staticClass: "col" },
+        [
+          _c(
+            "router-link",
+            {
+              staticClass: "btn btn-success",
+              attrs: { to: { name: "admin.categories.create" } }
+            },
+            [_vm._v("Cadastrar")]
+          )
+        ],
+        1
       ),
       _vm._v(" "),
-      _c("table", { staticClass: "table table-dark" }, [
-        _vm._m(0),
-        _vm._v(" "),
-        _c(
-          "tbody",
-          _vm._l(_vm.categories.data, function(category, index) {
-            return _c("tr", { key: index }, [
-              _c("td", { domProps: { textContent: _vm._s(category.id) } }),
-              _vm._v(" "),
-              _c("td", { domProps: { textContent: _vm._s(category.name) } }),
-              _vm._v(" "),
-              _c(
-                "td",
-                [
-                  _c(
-                    "router-link",
-                    {
-                      staticClass: "btn btn-info",
-                      attrs: {
-                        to: {
-                          name: "admin.categories.edit",
-                          params: { id: category.id }
-                        }
+      _c(
+        "div",
+        { staticClass: "col" },
+        [_c("search", { on: { searchCategory: _vm.search } })],
+        1
+      )
+    ]),
+    _vm._v(" "),
+    _c("table", { staticClass: "table table-dark" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c(
+        "tbody",
+        _vm._l(_vm.categories.data, function(category, index) {
+          return _c("tr", { key: index }, [
+            _c("td", { domProps: { textContent: _vm._s(category.id) } }),
+            _vm._v(" "),
+            _c("td", { domProps: { textContent: _vm._s(category.name) } }),
+            _vm._v(" "),
+            _c(
+              "td",
+              [
+                _c(
+                  "router-link",
+                  {
+                    staticClass: "btn btn-info",
+                    attrs: {
+                      to: {
+                        name: "admin.categories.edit",
+                        params: { id: category.id }
                       }
-                    },
-                    [_vm._v("Editar")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "a",
-                    {
-                      staticClass: "btn btn-danger",
-                      attrs: { href: "#" },
-                      on: {
-                        click: function($event) {
-                          $event.preventDefault()
-                          _vm.confirmDestroy(category)
-                        }
+                    }
+                  },
+                  [_vm._v("Editar")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "a",
+                  {
+                    staticClass: "btn btn-danger",
+                    attrs: { href: "#" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        _vm.confirmDestroy(category)
                       }
-                    },
-                    [_vm._v("Remover")]
-                  )
-                ],
-                1
-              )
-            ])
-          })
-        )
-      ])
-    ],
-    1
-  )
+                    }
+                  },
+                  [_vm._v("Remover")]
+                )
+              ],
+              1
+            )
+          ])
+        })
+      )
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
@@ -34818,11 +34859,11 @@ var index_esm = {
         }
     },
     actions: {
-        loadCategories: function loadCategories(context) {
+        loadCategories: function loadCategories(context, params) {
 
             context.commit('PRELOADER', true);
 
-            axios.get('/api/v1/categories').then(function (response) {
+            axios.get('/api/v1/categories', { params: params }).then(function (response) {
                 console.log(response);
 
                 context.commit('LOAD_CATEGORIES', response);
@@ -35148,7 +35189,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -36910,6 +36951,189 @@ if (typeof window !== 'undefined' && window.hasOwnProperty('Vue')) {
 
 /* harmony default export */ __webpack_exports__["a"] = (Plugin);
 
+
+/***/ }),
+/* 84 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(85)
+}
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(87)
+/* template */
+var __vue_template__ = __webpack_require__(88)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/admin/pages/categories/partials/SearchCategoryComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-6a229a0a", Component.options)
+  } else {
+    hotAPI.reload("data-v-6a229a0a", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 85 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(86);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(4)("75c7974c", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../../../../node_modules/css-loader/index.js!../../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6a229a0a\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./SearchCategoryComponent.vue", function() {
+     var newContent = require("!!../../../../../../../../node_modules/css-loader/index.js!../../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6a229a0a\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./SearchCategoryComponent.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 86 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 87 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            filter: ''
+        };
+    },
+
+    methods: {
+        search: function search() {
+            this.$emit('searchCategory', this.filter);
+        }
+    }
+});
+
+/***/ }),
+/* 88 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c(
+      "form",
+      {
+        staticClass: "form form-inline",
+        on: {
+          submit: function($event) {
+            $event.preventDefault()
+            return _vm.search($event)
+          }
+        }
+      },
+      [
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.filter,
+              expression: "filter"
+            }
+          ],
+          staticClass: "form-control mr-sm-2",
+          attrs: { type: "text", placeholder: "Pesquisar:" },
+          domProps: { value: _vm.filter },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.filter = $event.target.value
+            }
+          }
+        }),
+        _vm._v(" "),
+        _c(
+          "button",
+          { staticClass: "btn btn-outline-success", attrs: { type: "submit" } },
+          [_vm._v("Pesquisar")]
+        )
+      ]
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-6a229a0a", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);
