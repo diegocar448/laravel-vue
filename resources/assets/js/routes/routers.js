@@ -6,6 +6,7 @@ import CategoriesComponent from '../components/admin/pages/categories/Categories
 import AddCategoryComponent from '../components/admin/pages/categories/AddCategoryComponent'
 import EditCategoryComponent from '../components/admin/pages/categories/EditCategoryComponent'
 import DashboardComponent from '../components/admin/pages/dashboard/DashboardComponent'
+import ProductsComponent from '../components/admin/pages/products/ProductsComponent'
 
 Vue.use(VueRouter)
 
@@ -35,7 +36,15 @@ const routes = [
                 name: 'admin.categories.edit',
                 //Edita aceitar props == valores dinamicos
                 props:true
-            }
+            },
+
+
+
+            {
+                path: 'products', 
+                component:ProductsComponent, 
+                name: 'admin.products'
+            },
         ]
     },
     
