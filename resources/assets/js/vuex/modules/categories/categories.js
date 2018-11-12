@@ -67,7 +67,7 @@ export default {
                 axios.delete(`/api/v1/categories/${id}`)
                     .then(response => resolve())
                     .catch(error => reject(error))
-                    //.finally(() => context.commit('PRELOADER', false))
+                    .finally(() => context.commit('PRELOADER', false))
             })
         }
 

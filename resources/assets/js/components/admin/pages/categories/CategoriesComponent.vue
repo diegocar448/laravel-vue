@@ -54,12 +54,12 @@ export default {
 
         confirmDestroy(category){
             this.$snotify.error(`Deseja realmente deletar a categoria: ${category.name}`, `Deletar?`, {
-                timout: 10000,
+                timout: 500,
                 showProgressBar:true,
                 closeOnClick:true,
                 buttons:[
-                    {text:'Não', action:() => closeOnClick},                    
-                    {text:'Sim', action:() => this.destroy(category)}
+                    {text:'Não', action: () => console.log("Não deletou...")},                    
+                    {text:'Sim', action: () => this.destroy(category)}
                 ]      
             })
         },

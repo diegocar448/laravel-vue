@@ -33488,11 +33488,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             this.$snotify.error('Deseja realmente deletar a categoria: ' + category.name, 'Deletar?', {
-                timout: 10000,
+                timout: 500,
                 showProgressBar: true,
                 closeOnClick: true,
                 buttons: [{ text: 'Não', action: function action() {
-                        return closeOnClick;
+                        return console.log("Não deletou...");
                     } }, { text: 'Sim', action: function action() {
                         return _this.destroy(category);
                     } }]
@@ -34881,8 +34881,9 @@ var index_esm = {
                     return resolve();
                 }).catch(function (error) {
                     return reject(error);
+                }).finally(function () {
+                    return context.commit('PRELOADER', false);
                 });
-                //.finally(() => context.commit('PRELOADER', false))
             });
         }
     },
