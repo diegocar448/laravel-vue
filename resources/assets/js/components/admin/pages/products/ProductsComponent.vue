@@ -23,18 +23,29 @@
             </tbody>
         </table>
 
-        <ul v-if="products.last_page > 1">
+        <pagination
+            :pagination="products"
+            :offset="6"
+            @paginate="loadProducts"
+        >
+
+        </pagination>
+
+        <!-- <ul v-if="products.last_page > 1">
             <li v-if="products.current_page != 1">
                 <a href="" @click.prevent="loadProducts(products.current_page - 1)">Anterior</a>
             </li>
             <li v-if="products.current_page < products.last_page">
                 <a href="" @click.prevent="loadProducts(products.current_page + 1)">Próxima</a>
             </li>
-        </ul>
+        </ul> -->
     </div>
 </template>
 
 <script>
+import PaginationComponent from '../../../layouts/PaginationComponent'
+
+
 export default {
     created(){
         //deixar a loading page para pegar a pagina 1 como padrão
@@ -50,7 +61,7 @@ export default {
             return{
                 //vai pegar apenas a pagina atual
                 page: this.products.current_page
-            }
+            } 
         }        
     },
     methods:{        
@@ -58,6 +69,9 @@ export default {
             //quando o valor não for o valor padrão passado pelo created 1 aqui passamos  o novo valor com (,page)
             this.$store.dispatch('loadProducts', {...this.params, page})
         }
+    },
+    components:{
+        pagination: PaginationComponent
     }
 
 }
