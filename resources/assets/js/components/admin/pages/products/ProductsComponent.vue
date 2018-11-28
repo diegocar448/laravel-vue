@@ -15,7 +15,7 @@
                     :width="600"
                     :height="400"
                     >#content
-                    <product-form></product-form>
+                    <product-form @success="success"></product-form>
                     
                  </vodal>
             </div>
@@ -115,6 +115,12 @@ export default {
         },
         hideModal(){
             this.showModal =false 
+        },
+        success(){
+            //após gerar um novo registro com sucesso fechar o modal
+            this.hideModal()
+            //carregar tbm a listagem na paginação - pagina 1
+            this.loadProducts(1)
         }
 
     },

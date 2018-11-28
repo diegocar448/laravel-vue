@@ -57,6 +57,8 @@
                 this.$store.dispatch('storeProduct', this.product)
                 .then(() => {
                     this.$snotify.success('Sucesso ao cadastrar')
+
+                    this.$emit('success')
                 })
                 .catch(error => {
                     this.$snotify.error('Algo Errado', 'Erro')

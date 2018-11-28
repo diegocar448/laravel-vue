@@ -36011,7 +36011,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -36149,6 +36149,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         },
         hideModal: function hideModal() {
             this.showModal = false;
+        },
+        success: function success() {
+            //após gerar um novo registro com sucesso fechar o modal
+            this.hideModal();
+            //carregar tbm a listagem na paginação - pagina 1
+            this.loadProducts(1);
         }
     },
     //registrar componentes
@@ -36735,6 +36741,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             this.$store.dispatch('storeProduct', this.product).then(function () {
                 _this.$snotify.success('Sucesso ao cadastrar');
+
+                _this.$emit('success');
             }).catch(function (error) {
                 _this.$snotify.error('Algo Errado', 'Erro');
 
@@ -36901,7 +36909,10 @@ var render = function() {
                 },
                 on: { hide: _vm.hideModal }
               },
-              [_vm._v("#content\n                "), _c("product-form")],
+              [
+                _vm._v("#content\n                "),
+                _c("product-form", { on: { success: _vm.success } })
+              ],
               1
             )
           ],
@@ -38119,9 +38130,8 @@ var RESOURCE = 'products';
                 return resolve();
             }).catch(function (error) {
                 return reject(error.response);
-            }).finally(function () {
-                return context.commit('PRELOADER', false);
             });
+            //.finally(() => context.commit('PRELOADER', false))
         });
     }
 });

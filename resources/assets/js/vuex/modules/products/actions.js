@@ -23,7 +23,7 @@ export default {
             axios.post('/api/v1/products', params)
                 .then(response => resolve())
                 .catch(error => reject(error.response))
-                .finally(() => context.commit('PRELOADER', false))
+                //.finally(() => context.commit('PRELOADER', false))
         })
     }
 }
