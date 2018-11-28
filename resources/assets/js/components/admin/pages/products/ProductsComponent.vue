@@ -4,7 +4,16 @@
 
         <div class="row">
             <div class="col">
-                 #add
+                 <button class="btn btn-success" @click.prevent="showModal = true">
+                     Novo
+                 </button>
+                 
+                 <vodal
+                    :show="showModal"
+                    animation="zoom"
+                    @hide="hideModal = true"
+                    >#content
+                 </vodal>
             </div>
             <div class="col">
                 <search @search="searchForm">
@@ -55,6 +64,9 @@
 </template>
 
 <script>
+//import para usar o Vodal nesse component
+import Vodal from 'vodal'
+
 import PaginationComponent from '../../../layouts/PaginationComponent'
 import SearchComponent from '../../layouts/SearchComponent'
 
@@ -67,6 +79,7 @@ export default {
     data(){
         return{
             search:'',
+            showModal: false,
 
         }
     },
@@ -94,11 +107,17 @@ export default {
 
 
             this.loadProducts(1)
+        },
+        hideModal(){
+            this.showModal =false 
         }
+
     },
+    //registrar componentes
     components:{
         paginate: PaginationComponent,        
         search: SearchComponent,
+        Vodal,
     }
 
 }
