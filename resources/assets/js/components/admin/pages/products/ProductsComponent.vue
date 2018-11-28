@@ -12,7 +12,11 @@
                     :show="showModal"
                     animation="zoom"
                     @hide="hideModal = true"
+                    :width="600"
+                    :height="400"
                     >#content
+                    <product-form></product-form>
+                    
                  </vodal>
             </div>
             <div class="col">
@@ -69,6 +73,7 @@ import Vodal from 'vodal'
 
 import PaginationComponent from '../../../layouts/PaginationComponent'
 import SearchComponent from '../../layouts/SearchComponent'
+import ProductForm from './partials/ProductForm'
 
 
 export default {
@@ -118,6 +123,7 @@ export default {
         paginate: PaginationComponent,        
         search: SearchComponent,
         Vodal,
+        ProductForm,
     }
 
 }

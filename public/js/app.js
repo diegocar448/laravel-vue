@@ -36011,7 +36011,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -36028,8 +36028,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__layouts_PaginationComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__layouts_PaginationComponent__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__layouts_SearchComponent__ = __webpack_require__(86);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__layouts_SearchComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__layouts_SearchComponent__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__partials_ProductForm__ = __webpack_require__(113);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__partials_ProductForm___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__partials_ProductForm__);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+//
+//
+//
+//
 //
 //
 //
@@ -36102,6 +36108,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
     created: function created() {
         //deixar a loading page para pegar a pagina 1 como padrão
@@ -36148,7 +36155,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     components: {
         paginate: __WEBPACK_IMPORTED_MODULE_1__layouts_PaginationComponent___default.a,
         search: __WEBPACK_IMPORTED_MODULE_2__layouts_SearchComponent___default.a,
-        Vodal: __WEBPACK_IMPORTED_MODULE_0_vodal___default.a
+        Vodal: __WEBPACK_IMPORTED_MODULE_0_vodal___default.a,
+        ProductForm: __WEBPACK_IMPORTED_MODULE_3__partials_ProductForm___default.a
     }
 
 });
@@ -36648,14 +36656,20 @@ var render = function() {
             _c(
               "vodal",
               {
-                attrs: { show: _vm.showModal, animation: "zoom" },
+                attrs: {
+                  show: _vm.showModal,
+                  animation: "zoom",
+                  width: 600,
+                  height: 400
+                },
                 on: {
                   hide: function($event) {
                     _vm.hideModal = true
                   }
                 }
               },
-              [_vm._v("#content\n             ")]
+              [_vm._v("#content\n                "), _c("product-form")],
+              1
             )
           ],
           1
@@ -38051,6 +38065,216 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 108 */,
+/* 109 */,
+/* 110 */,
+/* 111 */,
+/* 112 */,
+/* 113 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(114)
+/* template */
+var __vue_template__ = __webpack_require__(115)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/admin/pages/products/partials/ProductForm.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-e9c2e8a2", Component.options)
+  } else {
+    hotAPI.reload("data-v-e9c2e8a2", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 114 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            product: {
+                name: '',
+                description: ''
+            },
+            errors: {}
+
+        };
+    }
+});
+
+/***/ }),
+/* 115 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c(
+      "form",
+      {
+        staticClass: "form",
+        on: {
+          submit: function($event) {
+            $event.preventDefault()
+            return _vm.onSubmit($event)
+          }
+        }
+      },
+      [
+        _c("div", { class: ["form-group", { "has-error": _vm.errors.name }] }, [
+          _vm.errors.name
+            ? _c("div", [_vm._v(_vm._s(_vm.errors.name[0]))])
+            : _vm._e(),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.product.name,
+                expression: "product.name"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "text", placeholder: "Nome do Produto" },
+            domProps: { value: _vm.product.name },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.product, "name", $event.target.value)
+              }
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          { class: ["form-group", { "has-error": _vm.errors.description }] },
+          [
+            _vm.errors.description
+              ? _c("div", [_vm._v(_vm._s(_vm.errors.description[0]))])
+              : _vm._e(),
+            _vm._v(" "),
+            _c("textarea", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.product.description,
+                  expression: "product.description"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: {
+                id: "",
+                cols: "30",
+                rows: "10",
+                placeholder: "Descrição do Produto"
+              },
+              domProps: { value: _vm.product.description },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.product, "description", $event.target.value)
+                }
+              }
+            })
+          ]
+        ),
+        _vm._v(" "),
+        _vm._m(0)
+      ]
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group" }, [
+      _c(
+        "button",
+        { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+        [_vm._v("Enviar")]
+      )
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-e9c2e8a2", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);
