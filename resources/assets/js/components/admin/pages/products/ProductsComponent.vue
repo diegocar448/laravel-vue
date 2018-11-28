@@ -2,6 +2,18 @@
     <div>
         <h1>Listagem de Produtos</h1>
 
+        <div class="row">
+            <div class="col">
+                 #add
+            </div>
+            <div class="col">
+                <search @search="searchForm">
+
+                </search>
+            </div>
+        </div>
+
+
 
         <table class="table table-dark">
             <thead>
@@ -23,13 +35,13 @@
             </tbody>
         </table>
 
-        <pagination
+        <paginate
             :pagination="products"
             :offset="6"
             @paginate="loadProducts"
         >
 
-        </pagination>
+        </paginate>
 
         <!-- <ul v-if="products.last_page > 1">
             <li v-if="products.current_page != 1">
@@ -44,12 +56,19 @@
 
 <script>
 import PaginationComponent from '../../../layouts/PaginationComponent'
+import SearchComponent from '../../layouts/SearchComponent'
 
 
 export default {
     created(){
         //deixar a loading page para pegar a pagina 1 como padrão
         this.loadProducts(1)
+    },
+    data(){
+        return{
+            search:'',
+
+        }
     },
     computed:{
         products(){
@@ -60,7 +79,8 @@ export default {
         params(){
             return{
                 //vai pegar apenas a pagina atual
-                page: this.products.current_page
+                page: this.products.current_page,
+                filter: this.search,
             } 
         }        
     },
@@ -68,10 +88,17 @@ export default {
         loadProducts(page){
             //quando o valor não for o valor padrão passado pelo created 1 aqui passamos  o novo valor com (,page)
             this.$store.dispatch('loadProducts', {...this.params, page})
+        },
+        searchForm(filter){
+            this.search = filter
+
+
+            this.loadProducts(1)
         }
     },
     components:{
-        pagination: PaginationComponent
+        paginate: PaginationComponent,        
+        search: SearchComponent,
     }
 
 }
