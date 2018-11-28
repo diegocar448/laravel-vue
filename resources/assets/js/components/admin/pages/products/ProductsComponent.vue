@@ -11,7 +11,7 @@
                  <vodal
                     :show="showModal"
                     animation="zoom"
-                    @hide="hideModal = true"
+                    @hide="hideModal"
                     :width="600"
                     :height="400"
                     >#content

@@ -24,16 +24,45 @@
 
 <script>
     export default{
-        data(){
-            return {
-                product:{
-                    name:'',
-                    description:'',
-                },
-                errors:{
-
+        props:{
+            //prop update para saber se vamos atualizar ou não
+            update: {
+                require: false,
+                type: Boolean,
+                default: false
+            },
+            product:{
+                require: false,
+                type:Object,
+                default: () => {
+                    return{
+                        id: '',
+                        name: '',
+                        description:'',
+                        //image:'',
+                        category_id: 1,
+                    }
                 }
-                
+            }
+        },
+        
+        data(){
+            return {                
+                errors:{}                
+            }
+        },
+        methods: {
+            //Aqui chamamos a action storeProduct
+            onSubmit(){
+                this.$store.dispatch('storeProduct', this.product)
+                .then(() => {
+                    this.$snotify.success('Sucesso ao cadastrar')
+                })
+                .catch(error => {
+                    this.$snotify.error('Algo Errado', 'Erro')
+                    
+                    this.errors = errors.data.errors
+                })
             }
         }
     }
