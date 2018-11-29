@@ -12493,6 +12493,9 @@ var app = new Vue({
     el: '#app'
 });
 
+//definir logica globalmente
+__WEBPACK_IMPORTED_MODULE_2__vuex_store__["a" /* default */].dispatch('loadCategories');
+
 /***/ }),
 /* 18 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -36704,6 +36707,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
@@ -36722,12 +36733,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     name: '',
                     description: '',
                     //image:'',
-                    category_id: 1
+                    category_id: ''
                 };
             }
         }
     },
 
+    computed: {
+        categories: function categories() {
+            //Aqui vai retornar as nossas categorias
+            return this.$store.state.categories.items.data;
+        }
+    },
     data: function data() {
         return {
             product: {},
@@ -36814,6 +36831,62 @@ var render = function() {
             }
           })
         ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          { class: ["form-group", { "has-error": _vm.errors.category_id }] },
+          [
+            _vm.errors.category_id
+              ? _c("div", [_vm._v(_vm._s(_vm.errors.category_id[0]))])
+              : _vm._e(),
+            _vm._v(" "),
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.product.category_id,
+                    expression: "product.category_id"
+                  }
+                ],
+                staticClass: "form-control",
+                on: {
+                  change: function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.$set(
+                      _vm.product,
+                      "category_id",
+                      $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                    )
+                  }
+                }
+              },
+              [
+                _c("option", { attrs: { value: "" } }, [
+                  _vm._v("Selecione a Categoria")
+                ]),
+                _vm._v(" "),
+                _vm._l(_vm.categories, function(category) {
+                  return _c(
+                    "option",
+                    { key: category.id, domProps: { value: category.id } },
+                    [_vm._v(_vm._s(category.name))]
+                  )
+                })
+              ],
+              2
+            )
+          ]
+        ),
         _vm._v(" "),
         _c(
           "div",

@@ -20,3 +20,8 @@ const app = new Vue({
     el: '#app'
 });
 
+
+//definir logica globalmente
+store.dispatch('loadCategories')
+
+
