@@ -36014,7 +36014,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -36104,6 +36104,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
 
 //import para usar o Vodal nesse component
 
@@ -36120,7 +36125,15 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     data: function data() {
         return {
             search: '',
-            showModal: false
+            showModal: false,
+            product: {
+                id: '',
+                name: '',
+                description: '',
+                //image:'',
+                category_id: ''
+            },
+            update: false
 
         };
     },
@@ -36144,6 +36157,22 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         loadProducts: function loadProducts(page) {
             //quando o valor não for o valor padrão passado pelo created 1 aqui passamos  o novo valor com (,page)
             this.$store.dispatch('loadProducts', _extends({}, this.params, { page: page }));
+        },
+        edit: function edit(id) {
+            var _this = this;
+
+            //carrega da action o metodo loadProduct passando idSS
+            this.$store.dispatch('loadProduct', id).then(function (response) {
+                console.log(response);
+
+                _this.product = response;
+
+                _this.showModal = true;
+
+                _this.update = true;
+            }).catch(function () {
+                _this.$snotify.error("Erro ao carregar Produto");
+            });
         },
         searchForm: function searchForm(filter) {
             this.search = filter;
@@ -36998,7 +37027,10 @@ var render = function() {
               },
               [
                 _vm._v("#content\n                "),
-                _c("product-form", { on: { success: _vm.success } })
+                _c("product-form", {
+                  attrs: { product: _vm.product, update: _vm.update },
+                  on: { success: _vm.success }
+                })
               ],
               1
             )
@@ -37025,7 +37057,28 @@ var render = function() {
               _vm._v(" "),
               _c("td", [_vm._v(_vm._s(product.name))]),
               _vm._v(" "),
-              _vm._m(1, true)
+              _c("td", [
+                _c(
+                  "a",
+                  {
+                    staticClass: "btn btn-info",
+                    attrs: { href: "#" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        _vm.edit(product.id)
+                      }
+                    }
+                  },
+                  [_vm._v("Editar")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "a",
+                  { staticClass: "btn btn-danger", attrs: { href: "#" } },
+                  [_vm._v("Deletar")]
+                )
+              ])
             ])
           })
         )
@@ -37051,20 +37104,6 @@ var staticRenderFns = [
         _c("th", [_vm._v("Nome")]),
         _vm._v(" "),
         _c("th", { attrs: { width: "200" } }, [_vm._v("Ações")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [
-      _c("a", { staticClass: "btn btn-info", attrs: { href: "#" } }, [
-        _vm._v("Editar")
-      ]),
-      _vm._v(" "),
-      _c("a", { staticClass: "btn btn-danger", attrs: { href: "#" } }, [
-        _vm._v("Deletar")
       ])
     ])
   }
@@ -38206,6 +38245,21 @@ var RESOURCE = 'products';
             return context.commit('PRELOADER', false);
         });
     },
+    loadProduct: function loadProduct(context, id) {
+        context.commit('PRELOADER', true);
+
+        return new Promise(function (resolve, reject) {
+            //axios.post('/api/v1/products', params)
+            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('' + __WEBPACK_IMPORTED_MODULE_1__config_configs__["a" /* URL_BASE */] + RESOURCE + '/' + id).then(function (response) {
+                return resolve(response.data);
+            }).catch(function (error) {
+                return reject();
+            }).finally(function () {
+                return context.commit('PRELOADER', false);
+            });
+        });
+    },
+
 
     //action para criar novos produtos
     storeProduct: function storeProduct(context, params) {

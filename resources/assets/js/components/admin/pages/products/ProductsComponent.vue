@@ -15,7 +15,12 @@
                     :width="600"
                     :height="400"
                     >#content
-                    <product-form @success="success"></product-form>
+                    <product-form 
+                        :product="product"
+                        :update="update"
+                        @success="success"
+                        >
+                    </product-form>
                     
                  </vodal>
             </div>
@@ -41,7 +46,7 @@
                     <td>...</td>
                     <td>{{ product.name }}</td>
                     <td>
-                        <a href="#" class="btn btn-info">Editar</a>
+                        <a href="#" @click.prevent="edit(product.id)" class="btn btn-info">Editar</a>
                         <a href="#" class="btn btn-danger">Deletar</a>
                     </td>                       
                 </tr>
@@ -85,6 +90,14 @@ export default {
         return{
             search:'',
             showModal: false,
+            product:{
+                id: '',
+                name: '',
+                description:'',
+                //image:'',
+                category_id: '',
+            },
+            update:false,
 
         }
     },
@@ -106,6 +119,24 @@ export default {
         loadProducts(page){
             //quando o valor não for o valor padrão passado pelo created 1 aqui passamos  o novo valor com (,page)
             this.$store.dispatch('loadProducts', {...this.params, page})
+        },
+
+        edit(id){
+            //carrega da action o metodo loadProduct passando idSS
+            this.$store.dispatch('loadProduct', id)
+                .then(response => {
+                    console.log(response)
+
+                    this.product = response
+
+                    this.showModal = true
+
+                    this.update = true
+                })
+                .catch(() => {
+                    this.$snotify.error("Erro ao carregar Produto")
+                })
+            
         },
         searchForm(filter){
             this.search = filter

@@ -14,6 +14,19 @@ export default {
         .catch(error => console.log(error))
         .finally(() => context.commit('PRELOADER', false))
     },
+
+    loadProduct(context, id) {
+        context.commit('PRELOADER', true)
+
+        return new Promise((resolve, reject) => {
+            //axios.post('/api/v1/products', params)
+            axios.get(`${URL_BASE}${RESOURCE}/${id}`)
+                .then(response => resolve(response.data))
+                .catch(error => reject())
+                .finally(() => context.commit('PRELOADER', false))
+        })
+    },
+
     //action para criar novos produtos
     storeProduct(context, params){
         context.commit('PRELOADER', true)
