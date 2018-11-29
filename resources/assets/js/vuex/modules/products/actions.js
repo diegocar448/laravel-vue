@@ -20,10 +20,15 @@ export default {
 
         //retorna informações se deu certo ou não
         return new Promise((resolve, reject) => {
-            axios.post('/api/v1/products', params)
+            //axios.post('/api/v1/products', params)
+            axios.post(`${URL_BASE}${RESOURCE}`, params)
                 .then(response => resolve())
-                .catch(error => reject(error.response))
-                //.finally(() => context.commit('PRELOADER', false))
+                .catch(error => reject(error.response))                
+                .finally(() => context.commit('PRELOADER', false))
         })
     }
+
+
+    
 }
+

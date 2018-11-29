@@ -47,7 +47,8 @@
         },
         
         data(){
-            return {                
+            return {
+                product:{},                
                 errors:{}                
             }
         },
@@ -58,13 +59,29 @@
                 .then(() => {
                     this.$snotify.success('Sucesso ao cadastrar')
 
+                    //quando fizer o cadastro com sucesso rodará o reset
+                    this.reset()
+
                     this.$emit('success')
                 })
-                .catch(error => {
-                    this.$snotify.error('Algo Errado', 'Erro')
+                .catch(errors => {
+                    this.$snotify.error('Algo Errado', 'Erro')                  
                     
-                    this.errors = errors.data.errors
+                    this.errors = errors.data.errors                    
                 })
+            },
+
+            
+
+            reset(){
+                this.errors = {}
+                this.product = {
+                    id: '',
+                    name: '',
+                    description:'',
+                    //image:'',
+                    category_id: 1,
+                }
             }
         }
     }

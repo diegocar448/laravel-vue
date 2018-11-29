@@ -36730,6 +36730,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     data: function data() {
         return {
+            product: {},
             errors: {}
         };
     },
@@ -36742,12 +36743,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.$store.dispatch('storeProduct', this.product).then(function () {
                 _this.$snotify.success('Sucesso ao cadastrar');
 
+                //quando fizer o cadastro com sucesso rodará o reset
+                _this.reset();
+
                 _this.$emit('success');
-            }).catch(function (error) {
+            }).catch(function (errors) {
                 _this.$snotify.error('Algo Errado', 'Erro');
 
                 _this.errors = errors.data.errors;
             });
+        },
+        reset: function reset() {
+            this.errors = {};
+            this.product = {
+                id: '',
+                name: '',
+                description: '',
+                //image:'',
+                category_id: 1
+            };
         }
     }
 });
@@ -36903,7 +36917,7 @@ var render = function() {
               {
                 attrs: {
                   show: _vm.showModal,
-                  animation: "zoom",
+                  animation: "rotate",
                   width: 600,
                   height: 400
                 },
@@ -38126,12 +38140,14 @@ var RESOURCE = 'products';
 
         //retorna informações se deu certo ou não
         return new Promise(function (resolve, reject) {
-            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('/api/v1/products', params).then(function (response) {
+            //axios.post('/api/v1/products', params)
+            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('' + __WEBPACK_IMPORTED_MODULE_1__config_configs__["a" /* URL_BASE */] + RESOURCE, params).then(function (response) {
                 return resolve();
             }).catch(function (error) {
                 return reject(error.response);
+            }).finally(function () {
+                return context.commit('PRELOADER', false);
             });
-            //.finally(() => context.commit('PRELOADER', false))
         });
     }
 });

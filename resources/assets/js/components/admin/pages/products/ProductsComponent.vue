@@ -10,7 +10,7 @@
                  
                  <vodal
                     :show="showModal"
-                    animation="zoom"
+                    animation="rotate"
                     @hide="hideModal"
                     :width="600"
                     :height="400"
@@ -75,7 +75,7 @@ import PaginationComponent from '../../../layouts/PaginationComponent'
 import SearchComponent from '../../layouts/SearchComponent'
 import ProductForm from './partials/ProductForm'
 
-
+ 
 export default {
     created(){
         //deixar a loading page para pegar a pagina 1 como padrão
