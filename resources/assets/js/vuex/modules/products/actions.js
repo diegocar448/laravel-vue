@@ -39,6 +39,20 @@ export default {
                 .catch(error => reject(error.response))                
                 .finally(() => context.commit('PRELOADER', false))
         })
+    },
+
+    //action para editar registros de produtos existentes
+    updateProduct(context, params) {
+        context.commit('PRELOADER', true)
+
+        //retorna informações se deu certo ou não
+        return new Promise((resolve, reject) => {
+            //axios.post('/api/v1/products', params)
+            axios.put(`${URL_BASE}${RESOURCE}/${params.id}`, params)
+                .then(response => resolve())
+                .catch(error => reject(error.response))
+                .finally(() => context.commit('PRELOADER', false))
+        })
     }
 
 

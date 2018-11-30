@@ -33,6 +33,7 @@
 <script>
     export default{
         props:{
+            //direcionar para store ou update na action
             //prop update para saber se vamos atualizar ou não
             update: {
                 require: false,
@@ -68,11 +69,14 @@
         },
         methods: {
             //Aqui chamamos a action storeProduct
-            onSubmit(){
-                this.$store.dispatch('storeProduct', this.product)
-                .then(() => {
-                    this.$snotify.success('Sucesso ao cadastrar')
+            onSubmit(){   
+                
+                 //ser receber true criará um registro se false vai para o atualizar 
+                let action = this.update ? 'updateProduct' : 'storeProduct'
 
+                this.$store.dispatch(action, this.product)
+                .then(() => {
+                    this.$snotify.success('Sucesso')
                     //quando fizer o cadastro com sucesso rodará o reset
                     this.reset()
  
