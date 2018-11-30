@@ -42,16 +42,7 @@
             },
             product:{
                 require: false,
-                type:Object,
-                default: () => {
-                    return{
-                        id: '',
-                        name: '',
-                        description:'',
-                        //image:'',
-                        category_id: '',
-                    }
-                }
+                type:Object,                
             }
         },
 

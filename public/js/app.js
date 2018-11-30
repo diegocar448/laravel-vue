@@ -36014,7 +36014,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -36187,6 +36187,25 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             this.hideModal();
             //carregar tbm a listagem na paginação - pagina 1
             this.loadProducts(1);
+        },
+        create: function create() {
+            //mudar o status de update para create
+            this.update = false;
+
+            //resetar o estado limpando os campos do formulário
+            this.reset();
+
+            //abrir modal
+            this.showModal = true;
+        },
+        reset: function reset() {
+            this.product = {
+                id: '',
+                name: '',
+                description: '',
+                //image:'',
+                category_id: ''
+            };
         }
     },
     //registrar componentes
@@ -36756,16 +36775,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         product: {
             require: false,
-            type: Object,
-            default: function _default() {
-                return {
-                    id: '',
-                    name: '',
-                    description: '',
-                    //image:'',
-                    category_id: ''
-                };
-            }
+            type: Object
         }
     },
 
@@ -37010,7 +37020,7 @@ var render = function() {
                 on: {
                   click: function($event) {
                     $event.preventDefault()
-                    _vm.showModal = true
+                    return _vm.create($event)
                   }
                 }
               },

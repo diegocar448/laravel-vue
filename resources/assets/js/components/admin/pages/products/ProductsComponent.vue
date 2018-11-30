@@ -4,7 +4,7 @@
 
         <div class="row">
             <div class="col">
-                 <button class="btn btn-success" @click.prevent="showModal = true">
+                 <button class="btn btn-success" @click.prevent="create">
                      Novo
                  </button>
                  
@@ -152,6 +152,25 @@ export default {
             this.hideModal()
             //carregar tbm a listagem na paginação - pagina 1
             this.loadProducts(1)
+        },
+        create(){
+            //mudar o status de update para create
+            this.update = false     
+            
+            //resetar o estado limpando os campos do formulário
+            this.reset()
+
+            //abrir modal
+            this.showModal=true
+        },
+        reset(){
+            this.product = {
+                id: '',
+                name: '',
+                description:'',
+                //image:'',
+                category_id: '',
+            }
         }
 
     },
