@@ -46,8 +46,8 @@
                     <td>...</td>
                     <td>{{ product.name }}</td>
                     <td>
-                        <a href="#" @click.prevent="edit(product.id)" class="btn btn-info">Editar</a>
-                        <a href="#" class="btn btn-danger">Deletar</a>
+                        <a @click.prevent="edit(product.id)" class="btn btn-info">Editar</a>
+                        <a @click.prevent="confirmDelete(product)" class="btn btn-danger">Deletar</a>
                     </td>                       
                 </tr>
             </tbody>
@@ -122,6 +122,9 @@ export default {
         },
 
         edit(id){
+
+            this.reset()
+
             //carrega da action o metodo loadProduct passando idSS
             this.$store.dispatch('loadProduct', id)
                 .then(response => {
@@ -157,11 +160,12 @@ export default {
             //mudar o status de update para create
             this.update = false     
             
+            //abrir modal
+            this.showModal=true
+            
             //resetar o estado limpando os campos do formulário
             this.reset()
 
-            //abrir modal
-            this.showModal=true
         },
         reset(){
             this.product = {
@@ -171,6 +175,33 @@ export default {
                 //image:'',
                 category_id: '',
             }
+        },
+        confirmDelete(product){
+            this.$snotify.error(`Deseja realmente deletar o produto ${product.name}`,              
+            product.name,
+            {
+                timeout:10000,
+                showProgressBar:true,
+                closeOnClick: true,
+                pauseOnHover:true,
+                //aqui vamos passar os botões q vamos usar
+                buttons:[
+                    {text: 'Nao', action: () => console.log('Não...')},
+                    {text: 'Sim', action: () => this.destroy(product.id)}
+                ]
+            
+            })
+        },
+
+        destroy(id){
+            //console.log('Vou deletar '+id)
+            //aqui ele vai pegar o metodo da nossa action para deletar o o produto
+            this.$store.dispatch('destroyProduct', id)
+                .then(() => {
+                        this.$snotify.success('Deletado com sucesso!')                        
+                    })
+                .catch(() => this.$snotify.error('Erro ao deletar')) 
+
         }
 
     },

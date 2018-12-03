@@ -53,6 +53,26 @@ export default {
                 .catch(error => reject(error.response))
                 .finally(() => context.commit('PRELOADER', false))
         })
+    },
+
+    destroyProduct(context, id){
+        context.commit('PRELOADER', true)
+
+        //retorna informações se deu certo ou não
+        return new Promise((resolve, reject) => {
+            //axios.post('/api/v1/products', params)
+            axios.delete(`${URL_BASE}${RESOURCE}/${id}`)
+                .then(response => {
+                    resolve()
+                    context.commit('PRELOADER', false)
+                    }
+                )
+                .catch(error => {
+                    reject()
+                    context.commit('PRELOADER', false)
+                })
+                //.finally(() => context.commit('PRELOADER', false))
+        })
     }
 
 
