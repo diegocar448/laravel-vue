@@ -36001,7 +36001,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -36020,6 +36020,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__layouts_SearchComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__layouts_SearchComponent__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__partials_ProductForm__ = __webpack_require__(91);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__partials_ProductForm___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__partials_ProductForm__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__layouts_ButtonDestroyComponent__ = __webpack_require__(116);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__layouts_ButtonDestroyComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__layouts_ButtonDestroyComponent__);
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -36099,6 +36101,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //import para usar o Vodal nesse component
+
 
 
 
@@ -36204,7 +36207,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }, {
           text: 'Sim',
           action: function action() {
-            return _this2.destroy(product.id);
+            return _this2.$emit('destroy', item.id);
           }
         }]
       });
@@ -36228,7 +36231,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     paginate: __WEBPACK_IMPORTED_MODULE_1__layouts_PaginationComponent___default.a,
     search: __WEBPACK_IMPORTED_MODULE_2__layouts_SearchComponent___default.a,
     Vodal: __WEBPACK_IMPORTED_MODULE_0_vodal___default.a,
-    ProductForm: __WEBPACK_IMPORTED_MODULE_3__partials_ProductForm___default.a
+    ProductForm: __WEBPACK_IMPORTED_MODULE_3__partials_ProductForm___default.a,
+    destroy: __WEBPACK_IMPORTED_MODULE_4__layouts_ButtonDestroyComponent___default.a
   }
 });
 
@@ -37085,35 +37089,30 @@ var render = function() {
               _vm._v(" "),
               _c("td", [_vm._v(_vm._s(product.name))]),
               _vm._v(" "),
-              _c("td", [
-                _c(
-                  "a",
-                  {
-                    staticClass: "btn btn-info",
-                    on: {
-                      click: function($event) {
-                        $event.preventDefault()
-                        _vm.edit(product.id)
+              _c(
+                "td",
+                [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "btn btn-info",
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          _vm.edit(product.id)
+                        }
                       }
-                    }
-                  },
-                  [_vm._v("Editar")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  {
-                    staticClass: "btn btn-danger",
-                    on: {
-                      click: function($event) {
-                        $event.preventDefault()
-                        _vm.confirmDelete(product)
-                      }
-                    }
-                  },
-                  [_vm._v("Deletar")]
-                )
-              ])
+                    },
+                    [_vm._v("Editar")]
+                  ),
+                  _vm._v(" "),
+                  _c("destroy", {
+                    attrs: { item: product },
+                    on: { destroy: _vm.destroy }
+                  })
+                ],
+                1
+              )
             ])
           })
         )
@@ -38516,6 +38515,135 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 111 */,
+/* 112 */,
+/* 113 */,
+/* 114 */,
+/* 115 */,
+/* 116 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(117)
+/* template */
+var __vue_template__ = __webpack_require__(118)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/admin/layouts/ButtonDestroyComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-16e7ac9c", Component.options)
+  } else {
+    hotAPI.reload("data-v-16e7ac9c", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 117 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    item: {
+      require: true,
+      type: Object
+    }
+  },
+  methods: {
+    confirmDelete: function confirmDelete(item) {
+      var _this = this;
+
+      this.$snotify.error("Deseja realmente deletar o registro ".concat(item.name), 'Confirma?', {
+        timeout: 0,
+        showProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        //aqui vamos passar os botões q vamos usar
+        buttons: [{
+          text: 'Nao',
+          action: function action() {
+            return console.log('Não...');
+          }
+        }, {
+          text: 'Sim',
+          action: function action() {
+            return _this.destroy(item.id);
+          }
+        }]
+      });
+    }
+  }
+});
+
+/***/ }),
+/* 118 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "a",
+    {
+      staticClass: "btn btn-danger",
+      on: {
+        click: function($event) {
+          $event.preventDefault()
+          _vm.confirmDelete(_vm.item)
+        }
+      }
+    },
+    [_vm._v("\n    Deletar\n")]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-16e7ac9c", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

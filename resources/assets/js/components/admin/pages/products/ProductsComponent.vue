@@ -47,7 +47,7 @@
                     <td>{{ product.name }}</td>
                     <td>
                         <a @click.prevent="edit(product.id)" class="btn btn-info">Editar</a>
-                        <a @click.prevent="confirmDelete(product)" class="btn btn-danger">Deletar</a>
+                        <destroy :item="product" @destroy="destroy" />
                     </td>                       
                 </tr>
             </tbody>
@@ -79,6 +79,7 @@ import Vodal from 'vodal'
 import PaginationComponent from '../../../layouts/PaginationComponent'
 import SearchComponent from '../../layouts/SearchComponent'
 import ProductForm from './partials/ProductForm'
+import ButtonDestroyComponent from '../../layouts/ButtonDestroyComponent'
 
  
 export default {
@@ -187,7 +188,7 @@ export default {
                 //aqui vamos passar os botões q vamos usar
                 buttons:[
                     {text: 'Nao', action: () => console.log('Não...')},
-                    {text: 'Sim', action: () => this.destroy(product.id)}
+                    {text: 'Sim', action: () => this.$emit('destroy', item.id)}
                 ]
             
             })
@@ -215,6 +216,7 @@ export default {
         search: SearchComponent,
         Vodal,
         ProductForm,
+        destroy: ButtonDestroyComponent,
     }
 
 }
