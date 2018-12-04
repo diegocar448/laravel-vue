@@ -180,7 +180,7 @@ export default {
             this.$snotify.error(`Deseja realmente deletar o produto ${product.name}`,              
             product.name,
             {
-                timeout:10000,
+                timeout:0,
                 showProgressBar:true,
                 closeOnClick: true,
                 pauseOnHover:true,
@@ -198,7 +198,11 @@ export default {
             //aqui ele vai pegar o metodo da nossa action para deletar o o produto
             this.$store.dispatch('destroyProduct', id)
                 .then(() => {
-                        this.$snotify.success('Deletado com sucesso!')                        
+                        this.$snotify.success('Deletado com sucesso!')     
+                        
+                        
+                        
+                        this.loadProducts(1)
                     })
                 .catch(() => this.$snotify.error('Erro ao deletar')) 
 

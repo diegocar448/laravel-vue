@@ -56,6 +56,8 @@ export default {
     },
 
     destroyProduct(context, id){
+
+        //primeiro inicia o preloader
         context.commit('PRELOADER', true)
 
         //retorna informações se deu certo ou não

@@ -12473,27 +12473,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__routes_routers__ = __webpack_require__(43);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__vuex_store__ = __webpack_require__(95);
 __webpack_require__(18);
+
 window.Vue = __webpack_require__(5);
 
 
 
-
-
-Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_snotify__["a" /* default */], { toast: { showProgressBar: false } });
-
+Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_snotify__["a" /* default */], {
+  toast: {
+    showProgressBar: false
+  }
+});
 /**
  * Components globais
  */
+
 Vue.component('admin-component', __webpack_require__(14));
 Vue.component('preloader-component', __webpack_require__(105));
-
 var app = new Vue({
-    router: __WEBPACK_IMPORTED_MODULE_1__routes_routers__["a" /* default */],
-    store: __WEBPACK_IMPORTED_MODULE_2__vuex_store__["a" /* default */],
-    el: '#app'
-});
+  router: __WEBPACK_IMPORTED_MODULE_1__routes_routers__["a" /* default */],
+  store: __WEBPACK_IMPORTED_MODULE_2__vuex_store__["a" /* default */],
+  el: '#app'
+}); //definir logica globalmente
 
-//definir logica globalmente
 __WEBPACK_IMPORTED_MODULE_2__vuex_store__["a" /* default */].dispatch('loadCategories');
 
 /***/ }),
@@ -12501,19 +12502,17 @@ __WEBPACK_IMPORTED_MODULE_2__vuex_store__["a" /* default */].dispatch('loadCateg
 /***/ (function(module, exports, __webpack_require__) {
 
 try {
-    __webpack_require__(19);
+  __webpack_require__(19);
 } catch (e) {}
-
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
  * to our Laravel back-end. This library automatically handles sending the
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
+
 window.axios = __webpack_require__(6);
-
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-
 /**
  * Next we will register the CSRF Token as a common header with Axios so that
  * all outgoing HTTP requests automatically have it attached. This is just
@@ -12523,9 +12522,9 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 var token = document.head.querySelector('meta[name="csrf-token"]');
 
 if (token) {
-    window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+  window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
 } else {
-    console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
+  console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
 
 /***/ }),
@@ -31999,42 +31998,37 @@ if (typeof window !== 'undefined' && window.hasOwnProperty('Vue')) {
 
 
 
-
-
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]);
-
 var routes = [{
-    path: '/admin',
-    component: __WEBPACK_IMPORTED_MODULE_2__components_admin_AdminComponent___default.a,
-    children: [{
-        path: '',
-        component: __WEBPACK_IMPORTED_MODULE_6__components_admin_pages_dashboard_DashboardComponent___default.a,
-        name: 'admin.dashboard'
-    }, {
-        path: 'categories',
-        component: __WEBPACK_IMPORTED_MODULE_3__components_admin_pages_categories_CategoriesComponent___default.a,
-        name: 'admin.categories'
-    }, {
-        path: 'categories/create',
-        component: __WEBPACK_IMPORTED_MODULE_4__components_admin_pages_categories_AddCategoryComponent___default.a,
-        name: 'admin.categories.create'
-    }, {
-        path: 'categories/:id/edit',
-        component: __WEBPACK_IMPORTED_MODULE_5__components_admin_pages_categories_EditCategoryComponent___default.a,
-        name: 'admin.categories.edit',
-        //Edita aceitar props == valores dinamicos
-        props: true
-    }, {
-        path: 'products',
-        component: __WEBPACK_IMPORTED_MODULE_7__components_admin_pages_products_ProductsComponent___default.a,
-        name: 'admin.products'
-    }]
+  path: '/admin',
+  component: __WEBPACK_IMPORTED_MODULE_2__components_admin_AdminComponent___default.a,
+  children: [{
+    path: '',
+    component: __WEBPACK_IMPORTED_MODULE_6__components_admin_pages_dashboard_DashboardComponent___default.a,
+    name: 'admin.dashboard'
+  }, {
+    path: 'categories',
+    component: __WEBPACK_IMPORTED_MODULE_3__components_admin_pages_categories_CategoriesComponent___default.a,
+    name: 'admin.categories'
+  }, {
+    path: 'categories/create',
+    component: __WEBPACK_IMPORTED_MODULE_4__components_admin_pages_categories_AddCategoryComponent___default.a,
+    name: 'admin.categories.create'
+  }, {
+    path: 'categories/:id/edit',
+    component: __WEBPACK_IMPORTED_MODULE_5__components_admin_pages_categories_EditCategoryComponent___default.a,
+    name: 'admin.categories.edit',
+    //Edita aceitar props == valores dinamicos
+    props: true
+  }, {
+    path: 'products',
+    component: __WEBPACK_IMPORTED_MODULE_7__components_admin_pages_products_ProductsComponent___default.a,
+    name: 'admin.products'
+  }]
 }];
-
 var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({
-    routes: routes
+  routes: routes
 });
-
 /* harmony default export */ __webpack_exports__["a"] = (router);
 
 /***/ }),
@@ -34761,13 +34755,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-
 /* harmony default export */ __webpack_exports__["default"] = ({
-    computed: {
-        totalCategories: function totalCategories() {
-            return this.$store.state.categories.items.data.length;
-        }
+  computed: {
+    totalCategories: function totalCategories() {
+      return this.$store.state.categories.items.data.length;
     }
+  }
 });
 
 /***/ }),
@@ -34993,66 +34986,68 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 
-
-
-
 /* harmony default export */ __webpack_exports__["default"] = ({
-    created: function created() {
-        //this.$store.dispatch('loadCategories')
-        this.loadCategories();
-    },
-    data: function data() {
-        return {
-            name: ''
-        };
-    },
-
-    computed: {
-        categories: function categories() {
-            return this.$store.state.categories.items;
-        }
-    },
-    methods: {
-        loadCategories: function loadCategories() {
-            this.$store.dispatch('loadCategories', { name: this.name });
-        },
-        confirmDestroy: function confirmDestroy(category) {
-            var _this = this;
-
-            this.$snotify.error('Deseja realmente deletar a categoria: ' + category.name, 'Deletar?', {
-                timout: 500,
-                showProgressBar: true,
-                closeOnClick: true,
-                buttons: [{ text: 'Não', action: function action() {
-                        return console.log("Não deletou...");
-                    } }, { text: 'Sim', action: function action() {
-                        return _this.destroy(category);
-                    } }]
-            });
-        },
-        destroy: function destroy(category) {
-            var _this2 = this;
-
-            this.$store.dispatch('destroyCategory', category.id).then(function () {
-                _this2.$snotify.success('Sucesso ao deletar a categoria: ' + category.name);
-
-                _this2.loadCategories();
-            }).catch(function (error) {
-                console.log(error);
-
-                _this2.$snotify.error('Erro ao deletar a categoria', 'Falha');
-            });
-        },
-        search: function search(filter) {
-            this.name = filter;
-
-            this.loadCategories();
-        }
-    },
-    components: {
-        search: __WEBPACK_IMPORTED_MODULE_1__partials_SearchCategoryComponent___default.a
+  created: function created() {
+    //this.$store.dispatch('loadCategories')
+    this.loadCategories();
+  },
+  data: function data() {
+    return {
+      name: ''
+    };
+  },
+  computed: {
+    categories: function categories() {
+      return this.$store.state.categories.items;
     }
+  },
+  methods: {
+    loadCategories: function loadCategories() {
+      this.$store.dispatch('loadCategories', {
+        name: this.name
+      });
+    },
+    confirmDestroy: function confirmDestroy(category) {
+      var _this = this;
 
+      this.$snotify.error("Deseja realmente deletar a categoria: ".concat(category.name), "Deletar?", {
+        timout: 500,
+        showProgressBar: true,
+        closeOnClick: true,
+        buttons: [{
+          text: 'Não',
+          action: function action() {
+            return console.log("Não deletou...");
+          }
+        }, {
+          text: 'Sim',
+          action: function action() {
+            return _this.destroy(category);
+          }
+        }]
+      });
+    },
+    destroy: function destroy(category) {
+      var _this2 = this;
+
+      this.$store.dispatch('destroyCategory', category.id).then(function () {
+        _this2.$snotify.success("Sucesso ao deletar a categoria: ".concat(category.name));
+
+        _this2.loadCategories();
+      }).catch(function (error) {
+        console.log(error);
+
+        _this2.$snotify.error('Erro ao deletar a categoria', 'Falha');
+      });
+    },
+    search: function search(filter) {
+      this.name = filter;
+      this.loadCategories();
+    }
+  },
+  components: {
+    search: __WEBPACK_IMPORTED_MODULE_1__partials_SearchCategoryComponent___default.a
+  }
 });
 
 /***/ }),
@@ -35161,19 +35156,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-
 /* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {
-            filter: ''
-        };
-    },
-
-    methods: {
-        search: function search() {
-            this.$emit('searchCategory', this.filter);
-        }
+  data: function data() {
+    return {
+      filter: ''
+    };
+  },
+  methods: {
+    search: function search() {
+      this.$emit('searchCategory', this.filter);
     }
+  }
 });
 
 /***/ }),
@@ -35461,12 +35454,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
-
-
 /* harmony default export */ __webpack_exports__["default"] = ({
-    components: {
-        formCat: __WEBPACK_IMPORTED_MODULE_0__partials_FormCategoryComponent___default.a
-    }
+  components: {
+    formCat: __WEBPACK_IMPORTED_MODULE_0__partials_FormCategoryComponent___default.a
+  }
 });
 
 /***/ }),
@@ -35532,49 +35523,48 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-
-
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: {
-        category: {
-            require: false,
-            type: Object | Array,
-            default: function _default() {
-                return {
-                    id: '',
-                    name: ''
-                };
-            }
-        },
-        updating: {
-            require: false,
-            type: Boolean,
-            default: false
-        }
-    },
-    data: function data() {
+  props: {
+    category: {
+      require: false,
+      type: Object | Array,
+      default: function _default() {
         return {
-            errors: {}
+          id: '',
+          name: ''
         };
+      }
     },
-
-    methods: {
-        onSubmit: function onSubmit() {
-            var _this = this;
-
-            var action = this.updating ? 'updateCategory' : 'storeCategory';
-
-            this.$store.dispatch(action, this.category).then(function () {
-                _this.$snotify.success('Sucesso ao cadastrar');
-                _this.$router.push({ name: 'admin.categories' });
-            }).catch(function (error) {
-                _this.$snotify.error('Algo Errado', 'Erro');
-                console.log(error.response.data.errors);
-                _this.errors = error.response.data.errors;
-            });
-        }
+    updating: {
+      require: false,
+      type: Boolean,
+      default: false
     }
+  },
+  data: function data() {
+    return {
+      errors: {}
+    };
+  },
+  methods: {
+    onSubmit: function onSubmit() {
+      var _this = this;
 
+      var action = this.updating ? 'updateCategory' : 'storeCategory';
+      this.$store.dispatch(action, this.category).then(function () {
+        _this.$snotify.success('Sucesso ao cadastrar');
+
+        _this.$router.push({
+          name: 'admin.categories'
+        });
+      }).catch(function (error) {
+        _this.$snotify.error('Algo Errado', 'Erro');
+
+        console.log(error.response.data.errors);
+        _this.errors = error.response.data.errors;
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -35794,43 +35784,40 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
-
-
-
 /* harmony default export */ __webpack_exports__["default"] = ({
-
-    props: {
-        id: {
-            require: true
-        }
-    },
-    created: function created() {
-        this.loadCategory();
-    },
-    data: function data() {
-        return {
-            category: {}
-        };
-    },
-
-
-    methods: {
-        loadCategory: function loadCategory() {
-            var _this = this;
-
-            this.$store.dispatch('loadCategory', this.id).then(function (response) {
-                return _this.category = response;
-            }).catch(function (error) {
-                _this.$snotify.error('Categoria não encontrada', '404');
-                _this.$router.push({ name: 'admin.categories' });
-                console.log(error);
-            });
-        }
-    },
-    components: {
-        formCat: __WEBPACK_IMPORTED_MODULE_0__partials_FormCategoryComponent___default.a
+  props: {
+    id: {
+      require: true
     }
+  },
+  created: function created() {
+    this.loadCategory();
+  },
+  data: function data() {
+    return {
+      category: {}
+    };
+  },
+  methods: {
+    loadCategory: function loadCategory() {
+      var _this = this;
 
+      this.$store.dispatch('loadCategory', this.id).then(function (response) {
+        return _this.category = response;
+      }).catch(function (error) {
+        _this.$snotify.error('Categoria não encontrada', '404');
+
+        _this.$router.push({
+          name: 'admin.categories'
+        });
+
+        console.log(error);
+      });
+    }
+  },
+  components: {
+    formCat: __WEBPACK_IMPORTED_MODULE_0__partials_FormCategoryComponent___default.a
+  }
 });
 
 /***/ }),
@@ -36014,7 +36001,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -36033,7 +36020,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__layouts_SearchComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__layouts_SearchComponent__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__partials_ProductForm__ = __webpack_require__(91);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__partials_ProductForm___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__partials_ProductForm__);
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 //
 //
@@ -36109,143 +36098,138 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-
 //import para usar o Vodal nesse component
 
 
 
 
-
-
 /* harmony default export */ __webpack_exports__["default"] = ({
-    created: function created() {
-        //deixar a loading page para pegar a pagina 1 como padrão
-        this.loadProducts(1);
+  created: function created() {
+    //deixar a loading page para pegar a pagina 1 como padrão
+    this.loadProducts(1);
+  },
+  data: function data() {
+    return {
+      search: '',
+      showModal: false,
+      product: {
+        id: '',
+        name: '',
+        description: '',
+        //image:'',
+        category_id: ''
+      },
+      update: false
+    };
+  },
+  computed: {
+    products: function products() {
+      return this.$store.state.products.items;
     },
-    data: function data() {
-        return {
-            search: '',
-            showModal: false,
-            product: {
-                id: '',
-                name: '',
-                description: '',
-                //image:'',
-                category_id: ''
-            },
-            update: false
-
-        };
-    },
-
-    computed: {
-        products: function products() {
-            return this.$store.state.products.items;
-        },
-
-        //vai retornar um objeto com informações que serão enviadas
-        //como parametros dinamicamente
-        params: function params() {
-            return {
-                //vai pegar apenas a pagina atual
-                page: this.products.current_page,
-                filter: this.search
-            };
-        }
-    },
-    methods: {
-        loadProducts: function loadProducts(page) {
-            //quando o valor não for o valor padrão passado pelo created 1 aqui passamos  o novo valor com (,page)
-            this.$store.dispatch('loadProducts', _extends({}, this.params, { page: page }));
-        },
-        edit: function edit(id) {
-            var _this = this;
-
-            this.reset();
-
-            //carrega da action o metodo loadProduct passando idSS
-            this.$store.dispatch('loadProduct', id).then(function (response) {
-                console.log(response);
-
-                _this.product = response;
-
-                _this.showModal = true;
-
-                _this.update = true;
-            }).catch(function () {
-                _this.$snotify.error("Erro ao carregar Produto");
-            });
-        },
-        searchForm: function searchForm(filter) {
-            this.search = filter;
-
-            this.loadProducts(1);
-        },
-        hideModal: function hideModal() {
-            this.showModal = false;
-        },
-        success: function success() {
-            //após gerar um novo registro com sucesso fechar o modal
-            this.hideModal();
-            //carregar tbm a listagem na paginação - pagina 1
-            this.loadProducts(1);
-        },
-        create: function create() {
-            //mudar o status de update para create
-            this.update = false;
-
-            //abrir modal
-            this.showModal = true;
-
-            //resetar o estado limpando os campos do formulário
-            this.reset();
-        },
-        reset: function reset() {
-            this.product = {
-                id: '',
-                name: '',
-                description: '',
-                //image:'',
-                category_id: ''
-            };
-        },
-        confirmDelete: function confirmDelete(product) {
-            var _this2 = this;
-
-            this.$snotify.error('Deseja realmente deletar o produto ' + product.name, product.name, {
-                timeout: 10000,
-                showProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                //aqui vamos passar os botões q vamos usar
-                buttons: [{ text: 'Nao', action: function action() {
-                        return console.log('Não...');
-                    } }, { text: 'Sim', action: function action() {
-                        return _this2.destroy(product.id);
-                    } }]
-
-            });
-        },
-        destroy: function destroy(id) {
-            var _this3 = this;
-
-            //console.log('Vou deletar '+id)
-            //aqui ele vai pegar o metodo da nossa action para deletar o o produto
-            this.$store.dispatch('destroyProduct', id).then(function () {
-                _this3.$snotify.success('Deletado com sucesso!');
-            }).catch(function () {
-                return _this3.$snotify.error('Erro ao deletar');
-            });
-        }
-    },
-    //registrar componentes
-    components: {
-        paginate: __WEBPACK_IMPORTED_MODULE_1__layouts_PaginationComponent___default.a,
-        search: __WEBPACK_IMPORTED_MODULE_2__layouts_SearchComponent___default.a,
-        Vodal: __WEBPACK_IMPORTED_MODULE_0_vodal___default.a,
-        ProductForm: __WEBPACK_IMPORTED_MODULE_3__partials_ProductForm___default.a
+    //vai retornar um objeto com informações que serão enviadas
+    //como parametros dinamicamente
+    params: function params() {
+      return {
+        //vai pegar apenas a pagina atual
+        page: this.products.current_page,
+        filter: this.search
+      };
     }
+  },
+  methods: {
+    loadProducts: function loadProducts(page) {
+      //quando o valor não for o valor padrão passado pelo created 1 aqui passamos  o novo valor com (,page)
+      this.$store.dispatch('loadProducts', _objectSpread({}, this.params, {
+        page: page
+      }));
+    },
+    edit: function edit(id) {
+      var _this = this;
 
+      this.reset(); //carrega da action o metodo loadProduct passando idSS
+
+      this.$store.dispatch('loadProduct', id).then(function (response) {
+        console.log(response);
+        _this.product = response;
+        _this.showModal = true;
+        _this.update = true;
+      }).catch(function () {
+        _this.$snotify.error("Erro ao carregar Produto");
+      });
+    },
+    searchForm: function searchForm(filter) {
+      this.search = filter;
+      this.loadProducts(1);
+    },
+    hideModal: function hideModal() {
+      this.showModal = false;
+    },
+    success: function success() {
+      //após gerar um novo registro com sucesso fechar o modal
+      this.hideModal(); //carregar tbm a listagem na paginação - pagina 1
+
+      this.loadProducts(1);
+    },
+    create: function create() {
+      //mudar o status de update para create
+      this.update = false; //abrir modal
+
+      this.showModal = true; //resetar o estado limpando os campos do formulário
+
+      this.reset();
+    },
+    reset: function reset() {
+      this.product = {
+        id: '',
+        name: '',
+        description: '',
+        //image:'',
+        category_id: ''
+      };
+    },
+    confirmDelete: function confirmDelete(product) {
+      var _this2 = this;
+
+      this.$snotify.error("Deseja realmente deletar o produto ".concat(product.name), product.name, {
+        timeout: 0,
+        showProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        //aqui vamos passar os botões q vamos usar
+        buttons: [{
+          text: 'Nao',
+          action: function action() {
+            return console.log('Não...');
+          }
+        }, {
+          text: 'Sim',
+          action: function action() {
+            return _this2.destroy(product.id);
+          }
+        }]
+      });
+    },
+    destroy: function destroy(id) {
+      var _this3 = this;
+
+      //console.log('Vou deletar '+id)
+      //aqui ele vai pegar o metodo da nossa action para deletar o o produto
+      this.$store.dispatch('destroyProduct', id).then(function () {
+        _this3.$snotify.success('Deletado com sucesso!');
+
+        _this3.loadProducts(1);
+      }).catch(function () {
+        return _this3.$snotify.error('Erro ao deletar');
+      });
+    }
+  },
+  //registrar componentes
+  components: {
+    paginate: __WEBPACK_IMPORTED_MODULE_1__layouts_PaginationComponent___default.a,
+    search: __WEBPACK_IMPORTED_MODULE_2__layouts_SearchComponent___default.a,
+    Vodal: __WEBPACK_IMPORTED_MODULE_0_vodal___default.a,
+    ProductForm: __WEBPACK_IMPORTED_MODULE_3__partials_ProductForm___default.a
+  }
 });
 
 /***/ }),
@@ -36374,7 +36358,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     pagination: {
@@ -36391,23 +36374,30 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       // Verifica se tem itens para paginar, se não tiver retorna o Array vazio
       if (!this.pagination.to) {
         return [];
-      }
-      // Define a próxima página
+      } // Define a próxima página
+
+
       var from = this.pagination.current_page - this.offset;
+
       if (from < 1) {
         from = 1;
-      }
-      // Define a última opção páginação
+      } // Define a última opção páginação
+
+
       var to = from + this.offset;
+
       if (to >= this.pagination.last_page) {
         to = this.pagination.last_page;
-      }
-      // Cria as opções de paginação
+      } // Cria as opções de paginação
+
+
       var pagesArray = [];
+
       for (var page = from; page <= to; page++) {
         pagesArray.push(page);
-      }
-      // Array montado com as opções de paginação (Número de opções de paginação === offset)
+      } // Array montado com as opções de paginação (Número de opções de paginação === offset)
+
+
       return pagesArray;
     }
   },
@@ -36625,19 +36615,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-
 /* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {
-            filter: ''
-        };
-    },
-
-    methods: {
-        search: function search() {
-            this.$emit('search', this.filter);
-        }
+  data: function data() {
+    return {
+      filter: ''
+    };
+  },
+  methods: {
+    search: function search() {
+      this.$emit('search', this.filter);
     }
+  }
 });
 
 /***/ }),
@@ -36793,66 +36781,63 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: {
-        //direcionar para store ou update na action
-        //prop update para saber se vamos atualizar ou não
-        update: {
-            require: false,
-            type: Boolean,
-            default: false
-        },
-        product: {
-            require: false,
-            type: Object
-        }
+  props: {
+    //direcionar para store ou update na action
+    //prop update para saber se vamos atualizar ou não
+    update: {
+      require: false,
+      type: Boolean,
+      default: false
     },
-
-    computed: {
-        categories: function categories() {
-            //Aqui vai retornar as nossas categorias
-            return this.$store.state.categories.items.data;
-        }
-    },
-    data: function data() {
-        return {
-            product: {},
-            errors: {}
-        };
-    },
-
-    methods: {
-        //Aqui chamamos a action storeProduct
-        onSubmit: function onSubmit() {
-            var _this = this;
-
-            //ser receber true criará um registro se false vai para o atualizar 
-            var action = this.update ? 'updateProduct' : 'storeProduct';
-
-            this.$store.dispatch(action, this.product).then(function () {
-                _this.$snotify.success('Sucesso');
-                //quando fizer o cadastro com sucesso rodará o reset
-                _this.reset();
-
-                _this.$emit('success');
-            }).catch(function (errors) {
-                _this.$snotify.error('Algo Errado', 'Erro');
-
-                _this.errors = errors.data.errors;
-            });
-        },
-        reset: function reset() {
-            this.errors = {};
-            this.product = {
-                id: '',
-                name: '',
-                description: '',
-                //image:'',
-                category_id: 1
-            };
-        }
+    product: {
+      require: false,
+      type: Object
     }
+  },
+  computed: {
+    categories: function categories() {
+      //Aqui vai retornar as nossas categorias
+      return this.$store.state.categories.items.data;
+    }
+  },
+  data: function data() {
+    return {
+      product: {},
+      errors: {}
+    };
+  },
+  methods: {
+    //Aqui chamamos a action storeProduct
+    onSubmit: function onSubmit() {
+      var _this = this;
+
+      //ser receber true criará um registro se false vai para o atualizar 
+      var action = this.update ? 'updateProduct' : 'storeProduct';
+      this.$store.dispatch(action, this.product).then(function () {
+        _this.$snotify.success('Sucesso'); //quando fizer o cadastro com sucesso rodará o reset
+
+
+        _this.reset();
+
+        _this.$emit('success');
+      }).catch(function (errors) {
+        _this.$snotify.error('Algo Errado', 'Erro');
+
+        _this.errors = errors.data.errors;
+      });
+    },
+    reset: function reset() {
+      this.errors = {};
+      this.product = {
+        id: '',
+        name: '',
+        description: '',
+        //image:'',
+        category_id: 1
+      };
+    }
+  }
 });
 
 /***/ }),
@@ -37183,18 +37168,14 @@ if (false) {
 
 
 
-
-
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */]);
-
 var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
-    modules: {
-        categories: __WEBPACK_IMPORTED_MODULE_2__modules_categories_categories__["a" /* default */],
-        preloader: __WEBPACK_IMPORTED_MODULE_3__modules_preloader_preloader__["a" /* default */],
-        products: __WEBPACK_IMPORTED_MODULE_4__modules_products_products__["a" /* default */]
-    }
+  modules: {
+    categories: __WEBPACK_IMPORTED_MODULE_2__modules_categories_categories__["a" /* default */],
+    preloader: __WEBPACK_IMPORTED_MODULE_3__modules_preloader_preloader__["a" /* default */],
+    products: __WEBPACK_IMPORTED_MODULE_4__modules_products_products__["a" /* default */]
+  }
 });
-
 /* harmony default export */ __webpack_exports__["a"] = (store);
 
 /***/ }),
@@ -38148,87 +38129,81 @@ var index_esm = {
 
 "use strict";
 /* harmony default export */ __webpack_exports__["a"] = ({
-    state: {
-        items: {
-            data: []
-        }
+  state: {
+    items: {
+      data: []
+    }
+  },
+  mutations: {
+    LOAD_CATEGORIES: function LOAD_CATEGORIES(state, categories) {
+      state.items = categories;
+    }
+  },
+  actions: {
+    loadCategories: function loadCategories(context, params) {
+      context.commit('PRELOADER', true);
+      axios.get('/api/v1/categories', {
+        params: params
+      }).then(function (response) {
+        console.log(response);
+        context.commit('LOAD_CATEGORIES', response);
+      }).catch(function (errors) {
+        console.log(errors);
+      }).finally(function () {
+        return context.commit('PRELOADER', false);
+      });
     },
-    mutations: {
-        LOAD_CATEGORIES: function LOAD_CATEGORIES(state, categories) {
-            state.items = categories;
-        }
+    //retornar as informções para editar 1 usuario especifico
+    loadCategory: function loadCategory(context, id) {
+      context.commit('PRELOADER', true);
+      return new Promise(function (resolve, reject) {
+        axios.get("/api/v1/categories/".concat(id)).then(function (response) {
+          return resolve(response.data);
+        }).catch(function (error) {
+          return reject(error);
+        }).finally(function () {
+          return context.commit('PRELOADER', false);
+        });
+      });
     },
-    actions: {
-        loadCategories: function loadCategories(context, params) {
+    storeCategory: function storeCategory(context, params) {
+      context.commit('PRELOADER', true); //retorna informações se deu certo ou não
 
-            context.commit('PRELOADER', true);
-
-            axios.get('/api/v1/categories', { params: params }).then(function (response) {
-                console.log(response);
-
-                context.commit('LOAD_CATEGORIES', response);
-            }).catch(function (errors) {
-                console.log(errors);
-            }).finally(function () {
-                return context.commit('PRELOADER', false);
-            });
-        },
-
-
-        //retornar as informções para editar 1 usuario especifico
-        loadCategory: function loadCategory(context, id) {
-            context.commit('PRELOADER', true);
-
-            return new Promise(function (resolve, reject) {
-                axios.get('/api/v1/categories/' + id).then(function (response) {
-                    return resolve(response.data);
-                }).catch(function (error) {
-                    return reject(error);
-                }).finally(function () {
-                    return context.commit('PRELOADER', false);
-                });
-            });
-        },
-        storeCategory: function storeCategory(context, params) {
-            context.commit('PRELOADER', true);
-
-            //retorna informações se deu certo ou não
-            return new Promise(function (resolve, reject) {
-                axios.post('/api/v1/categories', params).then(function (response) {
-                    return resolve();
-                }).catch(function (error) {
-                    return reject(error);
-                }).finally(function () {
-                    return context.commit('PRELOADER', false);
-                });
-            });
-        },
-        updateCategory: function updateCategory(context, params) {
-            return new Promise(function (resolve, reject) {
-                axios.put('/api/v1/categories/' + params.id, params).then(function (response) {
-                    return resolve();
-                }).catch(function (error) {
-                    return reject(error);
-                }).finally(function () {
-                    return context.commit('PRELOADER', false);
-                });
-            });
-        },
-        destroyCategory: function destroyCategory(context, id) {
-            context.commit('PRELOADER', true);
-
-            return new Promise(function (resolve, reject) {
-                axios.delete('/api/v1/categories/' + id).then(function (response) {
-                    return resolve();
-                }).catch(function (error) {
-                    return reject(error);
-                }).finally(function () {
-                    return context.commit('PRELOADER', false);
-                });
-            });
-        }
+      return new Promise(function (resolve, reject) {
+        axios.post('/api/v1/categories', params).then(function (response) {
+          return resolve();
+        }).catch(function (error) {
+          return reject(error);
+        }).finally(function () {
+          return context.commit('PRELOADER', false);
+        });
+      });
     },
-    getters: {}
+    updateCategory: function updateCategory(context, params) {
+      return new Promise(function (resolve, reject) {
+        axios.put("/api/v1/categories/".concat(params.id), params).then(function (response) {
+          return resolve();
+        }).catch(function (error) {
+          return reject(error);
+        }).finally(function () {
+          return context.commit('PRELOADER', false);
+        });
+      });
+    },
+    destroyCategory: function destroyCategory(context, id) {
+      context.commit('PRELOADER', true);
+      return new Promise(function (resolve, reject) {
+        axios.delete("/api/v1/categories/".concat(id)).then(function (response) {
+          return resolve();
+        }).catch(function (error) {
+          return reject(error);
+        }).finally(function () {
+          return context.commit('PRELOADER', false);
+        });
+      });
+    }
+  },
+  getters: {}
 });
 
 /***/ }),
@@ -38237,15 +38212,15 @@ var index_esm = {
 
 "use strict";
 /* harmony default export */ __webpack_exports__["a"] = ({
-    state: {
-        loading: false
-    },
-    mutations: {
-        PRELOADER: function PRELOADER(state, status) {
-            state.loading = status;
-        }
-    },
-    actions: {}
+  state: {
+    loading: false
+  },
+  mutations: {
+    PRELOADER: function PRELOADER(state, status) {
+      state.loading = status;
+    }
+  },
+  actions: {}
 });
 
 /***/ }),
@@ -38261,12 +38236,11 @@ var index_esm = {
 
 
 
-
 /* harmony default export */ __webpack_exports__["a"] = ({
-    actions: __WEBPACK_IMPORTED_MODULE_0__actions__["a" /* default */],
-    mutations: __WEBPACK_IMPORTED_MODULE_1__mutations__["a" /* default */],
-    getters: __WEBPACK_IMPORTED_MODULE_2__getters__["a" /* default */],
-    state: __WEBPACK_IMPORTED_MODULE_3__state__["a" /* default */]
+  actions: __WEBPACK_IMPORTED_MODULE_0__actions__["a" /* default */],
+  mutations: __WEBPACK_IMPORTED_MODULE_1__mutations__["a" /* default */],
+  getters: __WEBPACK_IMPORTED_MODULE_2__getters__["a" /* default */],
+  state: __WEBPACK_IMPORTED_MODULE_3__state__["a" /* default */]
 });
 
 /***/ }),
@@ -38279,88 +38253,79 @@ var index_esm = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__config_configs__ = __webpack_require__(101);
 
 
-
 var RESOURCE = 'products';
-
 /* harmony default export */ __webpack_exports__["a"] = ({
-    //action de listagem de produtos
-    loadProducts: function loadProducts(context, params) {
-        context.commit('PRELOADER', true);
+  //action de listagem de produtos
+  loadProducts: function loadProducts(context, params) {
+    context.commit('PRELOADER', true);
+    __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("".concat(__WEBPACK_IMPORTED_MODULE_1__config_configs__["a" /* URL_BASE */]).concat(RESOURCE), {
+      params: params
+    }).then(function (response) {
+      return context.commit('LOAD_PRODUCTS', response.data);
+    }).catch(function (error) {
+      return console.log(error);
+    }).finally(function () {
+      return context.commit('PRELOADER', false);
+    });
+  },
+  loadProduct: function loadProduct(context, id) {
+    context.commit('PRELOADER', true);
+    return new Promise(function (resolve, reject) {
+      //axios.post('/api/v1/products', params)
+      __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("".concat(__WEBPACK_IMPORTED_MODULE_1__config_configs__["a" /* URL_BASE */]).concat(RESOURCE, "/").concat(id)).then(function (response) {
+        return resolve(response.data);
+      }).catch(function (error) {
+        return reject();
+      }).finally(function () {
+        return context.commit('PRELOADER', false);
+      });
+    });
+  },
+  //action para criar novos produtos
+  storeProduct: function storeProduct(context, params) {
+    context.commit('PRELOADER', true); //retorna informações se deu certo ou não
 
-        __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('' + __WEBPACK_IMPORTED_MODULE_1__config_configs__["a" /* URL_BASE */] + RESOURCE, { params: params }).then(function (response) {
-            return context.commit('LOAD_PRODUCTS', response.data);
-        }).catch(function (error) {
-            return console.log(error);
-        }).finally(function () {
-            return context.commit('PRELOADER', false);
-        });
-    },
-    loadProduct: function loadProduct(context, id) {
-        context.commit('PRELOADER', true);
+    return new Promise(function (resolve, reject) {
+      //axios.post('/api/v1/products', params)
+      __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post("".concat(__WEBPACK_IMPORTED_MODULE_1__config_configs__["a" /* URL_BASE */]).concat(RESOURCE), params).then(function (response) {
+        return resolve();
+      }).catch(function (error) {
+        return reject(error.response);
+      }).finally(function () {
+        return context.commit('PRELOADER', false);
+      });
+    });
+  },
+  //action para editar registros de produtos existentes
+  updateProduct: function updateProduct(context, params) {
+    context.commit('PRELOADER', true); //retorna informações se deu certo ou não
 
-        return new Promise(function (resolve, reject) {
-            //axios.post('/api/v1/products', params)
-            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('' + __WEBPACK_IMPORTED_MODULE_1__config_configs__["a" /* URL_BASE */] + RESOURCE + '/' + id).then(function (response) {
-                return resolve(response.data);
-            }).catch(function (error) {
-                return reject();
-            }).finally(function () {
-                return context.commit('PRELOADER', false);
-            });
-        });
-    },
+    return new Promise(function (resolve, reject) {
+      //axios.post('/api/v1/products', params)
+      __WEBPACK_IMPORTED_MODULE_0_axios___default.a.put("".concat(__WEBPACK_IMPORTED_MODULE_1__config_configs__["a" /* URL_BASE */]).concat(RESOURCE, "/").concat(params.id), params).then(function (response) {
+        return resolve();
+      }).catch(function (error) {
+        return reject(error.response);
+      }).finally(function () {
+        return context.commit('PRELOADER', false);
+      });
+    });
+  },
+  destroyProduct: function destroyProduct(context, id) {
+    //primeiro inicia o preloader
+    context.commit('PRELOADER', true); //retorna informações se deu certo ou não
 
-
-    //action para criar novos produtos
-    storeProduct: function storeProduct(context, params) {
-        context.commit('PRELOADER', true);
-
-        //retorna informações se deu certo ou não
-        return new Promise(function (resolve, reject) {
-            //axios.post('/api/v1/products', params)
-            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('' + __WEBPACK_IMPORTED_MODULE_1__config_configs__["a" /* URL_BASE */] + RESOURCE, params).then(function (response) {
-                return resolve();
-            }).catch(function (error) {
-                return reject(error.response);
-            }).finally(function () {
-                return context.commit('PRELOADER', false);
-            });
-        });
-    },
-
-
-    //action para editar registros de produtos existentes
-    updateProduct: function updateProduct(context, params) {
-        context.commit('PRELOADER', true);
-
-        //retorna informações se deu certo ou não
-        return new Promise(function (resolve, reject) {
-            //axios.post('/api/v1/products', params)
-            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.put('' + __WEBPACK_IMPORTED_MODULE_1__config_configs__["a" /* URL_BASE */] + RESOURCE + '/' + params.id, params).then(function (response) {
-                return resolve();
-            }).catch(function (error) {
-                return reject(error.response);
-            }).finally(function () {
-                return context.commit('PRELOADER', false);
-            });
-        });
-    },
-    destroyProduct: function destroyProduct(context, id) {
-        context.commit('PRELOADER', true);
-
-        //retorna informações se deu certo ou não
-        return new Promise(function (resolve, reject) {
-            //axios.post('/api/v1/products', params)
-            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.delete('' + __WEBPACK_IMPORTED_MODULE_1__config_configs__["a" /* URL_BASE */] + RESOURCE + '/' + id).then(function (response) {
-                resolve();
-                context.commit('PRELOADER', false);
-            }).catch(function (error) {
-                reject();
-                context.commit('PRELOADER', false);
-            });
-            //.finally(() => context.commit('PRELOADER', false))
-        });
-    }
+    return new Promise(function (resolve, reject) {
+      //axios.post('/api/v1/products', params)
+      __WEBPACK_IMPORTED_MODULE_0_axios___default.a.delete("".concat(__WEBPACK_IMPORTED_MODULE_1__config_configs__["a" /* URL_BASE */]).concat(RESOURCE, "/").concat(id)).then(function (response) {
+        resolve();
+        context.commit('PRELOADER', false);
+      }).catch(function (error) {
+        reject();
+        context.commit('PRELOADER', false);
+      }); //.finally(() => context.commit('PRELOADER', false))
+    });
+  }
 });
 
 /***/ }),
@@ -38378,9 +38343,9 @@ var URL_BASE = '/api/v1/';
 
 "use strict";
 /* harmony default export */ __webpack_exports__["a"] = ({
-   LOAD_PRODUCTS: function LOAD_PRODUCTS(state, products) {
-      state.items = products;
-   }
+  LOAD_PRODUCTS: function LOAD_PRODUCTS(state, products) {
+    state.items = products;
+  }
 });
 
 /***/ }),
@@ -38396,9 +38361,9 @@ var URL_BASE = '/api/v1/';
 
 "use strict";
 /* harmony default export */ __webpack_exports__["a"] = ({
-    items: {
-        data: []
-    }
+  items: {
+    data: []
+  }
 });
 
 /***/ }),
@@ -38504,13 +38469,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-
 /* harmony default export */ __webpack_exports__["default"] = ({
-    computed: {
-        preloader: function preloader() {
-            return this.$store.state.preloader.loading;
-        }
+  computed: {
+    preloader: function preloader() {
+      return this.$store.state.preloader.loading;
     }
+  }
 });
 
 /***/ }),

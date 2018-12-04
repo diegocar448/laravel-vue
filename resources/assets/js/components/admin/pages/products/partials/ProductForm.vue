@@ -70,7 +70,7 @@
                     this.$snotify.success('Sucesso')
                     //quando fizer o cadastro com sucesso rodará o reset
                     this.reset()
- 
+  
                     this.$emit('success')
                 })
                 .catch(errors => {
