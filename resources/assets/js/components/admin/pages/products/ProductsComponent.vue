@@ -126,7 +126,7 @@ export default {
 
             this.reset()
 
-            //carrega da action o metodo loadProduct passando idSS
+            //carrega da action o metodo loadProduct passando id
             this.$store.dispatch('loadProduct', id)
                 .then(response => {
                     console.log(response)
@@ -177,7 +177,7 @@ export default {
                 category_id: '',
             }
         },
-        confirmDelete(product){
+        /* confirmDelete(product){
             this.$snotify.error(`Deseja realmente deletar o produto ${product.name}`,              
             product.name,
             {
@@ -192,16 +192,14 @@ export default {
                 ]
             
             })
-        },
+        }, */
 
         destroy(id){
             //console.log('Vou deletar '+id)
             //aqui ele vai pegar o metodo da nossa action para deletar o o produto
             this.$store.dispatch('destroyProduct', id)
                 .then(() => {
-                        this.$snotify.success('Deletado com sucesso!')     
-                        
-                        
+                        this.$snotify.success('Deletado com sucesso!')                       
                         
                         this.loadProducts(1)
                     })
