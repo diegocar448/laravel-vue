@@ -5,6 +5,7 @@ import Snotify from 'vue-snotify'
 import router from './routes/routers'
 import store from './vuex/store'
 
+//Aqui desabilitamos o showProgressBar por padrão
 Vue.use(Snotify, {toast:{showProgressBar:false}})
 
 

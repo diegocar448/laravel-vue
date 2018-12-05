@@ -73,12 +73,13 @@ export default {
 
         confirmDestroy(category){
             this.$snotify.error(`Deseja realmente deletar a categoria: ${category.name}`, `Deletar?`, {
-                timout: 500,
+                timeout: 500,
                 showProgressBar:true,
                 closeOnClick:true,
                 buttons:[
-                    {text:'Não', action: () => console.log("Não deletou...")},                    
-                    {text:'Sim', action: () => this.destroy(category)}
+                    {text: 'Não', action: (toast) => {console.log('Clicked: Later'); this.$snotify.remove(toast.id); } },
+                    {text:'Sim', action: (toast) => {this.destroy(category); this.$snotify.remove(toast.id);}}
+                    //{text:'Sim', action: () => this.destroy(category)}
                 ]      
             })
         },

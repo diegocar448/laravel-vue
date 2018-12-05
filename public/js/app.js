@@ -12477,6 +12477,7 @@ __webpack_require__(18);
 window.Vue = __webpack_require__(5);
 
 
+ //Aqui desabilitamos o showProgressBar por padrão
 
 Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_snotify__["a" /* default */], {
   toast: {
@@ -34921,7 +34922,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -35011,19 +35012,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var _this = this;
 
       this.$snotify.error("Deseja realmente deletar a categoria: ".concat(category.name), "Deletar?", {
-        timout: 500,
+        timeout: 500,
         showProgressBar: true,
         closeOnClick: true,
         buttons: [{
           text: 'Não',
-          action: function action() {
-            return console.log("Não deletou...");
+          action: function action(toast) {
+            console.log('Clicked: Later');
+
+            _this.$snotify.remove(toast.id);
           }
         }, {
           text: 'Sim',
-          action: function action() {
-            return _this.destroy(category);
-          }
+          action: function action(toast) {
+            _this.destroy(category);
+
+            _this.$snotify.remove(toast.id);
+          } //{text:'Sim', action: () => this.destroy(category)}
+
         }]
       });
     },
@@ -38319,9 +38325,7 @@ var index_esm = {
           return resolve();
         }).catch(function (error) {
           return reject(error);
-        }).finally(function () {
-          return context.commit('PRELOADER', false);
-        });
+        }); //.finally(() => context.commit('PRELOADER', false))
       });
     }
   },
