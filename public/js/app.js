@@ -37084,16 +37084,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var _this = this;
 
       this.$snotify.error("Deseja realmente deletar o registro ".concat(item.name), 'Confirma?', {
-        timeout: 10000,
+        //timeout:10000,
         showProgressBar: true,
         closeOnClick: true,
         pauseOnHover: true,
         //aqui vamos passar os botões q vamos usar
         buttons: [{
           text: 'Nao',
-          action: function action() {
-            return console.log('Não...');
-          }
+          closeOnClick: true
         }, {
           text: 'Sim',
           action: function action() {
