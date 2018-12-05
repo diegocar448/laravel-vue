@@ -35012,7 +35012,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var _this = this;
 
       this.$snotify.error("Deseja realmente deletar a categoria: ".concat(category.name), "Deletar?", {
-        timeout: 500,
+        timeout: 10000,
         showProgressBar: true,
         closeOnClick: true,
         buttons: [{
@@ -37096,12 +37096,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         pauseOnHover: true,
         //aqui vamos passar os botões q vamos usar
         buttons: [{
-          text: 'Nao',
-          closeOnClick: true
-        }, {
+          text: 'Não',
+          action: function action(toast) {
+            console.log('Clicked: Later');
+
+            _this.$snotify.remove(toast.id);
+          }
+        }, //{text: 'Sim', action: (toast) => this.$emit('destroy', item.id)}
+        {
           text: 'Sim',
-          action: function action() {
-            return _this.$emit('destroy', item.id);
+          action: function action(toast) {
+            _this.$emit('destroy', item.id);
+
+            _this.$snotify.remove(toast.id);
           }
         }]
       });

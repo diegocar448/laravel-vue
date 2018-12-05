@@ -73,7 +73,7 @@ export default {
 
         confirmDestroy(category){
             this.$snotify.error(`Deseja realmente deletar a categoria: ${category.name}`, `Deletar?`, {
-                timeout: 500,
+                timeout: 10000,
                 showProgressBar:true,
                 closeOnClick:true,
                 buttons:[

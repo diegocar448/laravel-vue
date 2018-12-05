@@ -28,8 +28,9 @@
                     pauseOnHover:true,
                     //aqui vamos passar os botões q vamos usar
                     buttons:[
-                        {text: 'Nao', closeOnClick:true },
-                        {text: 'Sim', action: () => this.$emit('destroy', item.id)}
+                        {text: 'Não', action: (toast) => {console.log('Clicked: Later'); this.$snotify.remove(toast.id); } },
+                        //{text: 'Sim', action: (toast) => this.$emit('destroy', item.id)}
+                        {text: 'Sim', action: (toast) => {this.$emit('destroy', item.id); this.$snotify.remove(toast.id); } },
                         
                     ]
 
