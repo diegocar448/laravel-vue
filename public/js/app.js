@@ -37103,6 +37103,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             _this.$snotify.remove(toast.id);
           }
         }, //{text: 'Sim', action: (toast) => this.$emit('destroy', item.id)}
+        //alteração paara adicionar ao botão Sim para apagar o registro e em seguida fechar o snotify ButtonDestroy                        
         {
           text: 'Sim',
           action: function action(toast) {
