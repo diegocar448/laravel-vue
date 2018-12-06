@@ -50,8 +50,11 @@ export default {
             //axios.post('/api/v1/products', params)
             axios.put(`${URL_BASE}${RESOURCE}/${params.id}`, params)
                 .then(response => resolve())
-                .catch(error => reject(error.response))
-                .finally(() => context.commit('PRELOADER', false))
+                .catch(error => {
+                    reject(error.response)
+                     context.commit('PRELOADER', false)
+                })
+                //.finally(() => context.commit('PRELOADER', false))
         })
     },
 

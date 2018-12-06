@@ -36007,7 +36007,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -36108,8 +36108,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
 //import para usar o Vodal nesse component
 
 
@@ -36120,20 +36118,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   created: function created() {
     //deixar a loading page para pegar a pagina 1 como padrão
     this.loadProducts(1);
-  },
-  data: function data() {
-    return {
-      search: '',
-      showModal: false,
-      product: {
-        id: '',
-        name: '',
-        description: '',
-        //image:'',
-        category_id: ''
-      },
-      update: false
-    };
   },
   computed: {
     products: function products() {
@@ -36148,6 +36132,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         filter: this.search
       };
     }
+  },
+  data: function data() {
+    return {
+      search: '',
+      showModal: false,
+      product: {
+        id: '',
+        name: '',
+        description: '',
+        //image:'',
+        category_id: ''
+      },
+      update: false
+    };
   },
   methods: {
     loadProducts: function loadProducts(page) {
@@ -38446,10 +38444,9 @@ var RESOURCE = 'products';
       __WEBPACK_IMPORTED_MODULE_0_axios___default.a.put("".concat(__WEBPACK_IMPORTED_MODULE_1__config_configs__["a" /* URL_BASE */]).concat(RESOURCE, "/").concat(params.id), params).then(function (response) {
         return resolve();
       }).catch(function (error) {
-        return reject(error.response);
-      }).finally(function () {
-        return context.commit('PRELOADER', false);
-      });
+        reject(error.response);
+        context.commit('PRELOADER', false);
+      }); //.finally(() => context.commit('PRELOADER', false))
     });
   },
   destroyProduct: function destroyProduct(context, id) {

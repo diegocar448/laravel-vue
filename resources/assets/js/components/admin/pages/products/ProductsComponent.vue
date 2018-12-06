@@ -55,9 +55,7 @@
 
         <!-- :pagintation contem os items a ser listados recebe os produtos -->
         <!-- :offset a quantidade de items que queremos que exiba -->
-        <paginate
-
-            
+        <paginate            
             :pagination="products"
             :offset="6"
             @paginate="loadProducts"
@@ -91,6 +89,22 @@ export default {
         //deixar a loading page para pegar a pagina 1 como padrão
         this.loadProducts(1)
     },
+
+    computed:{
+        products(){
+            return this.$store.state.products.items
+        },
+        //vai retornar um objeto com informações que serão enviadas
+        //como parametros dinamicamente
+        params(){
+            return{
+                //vai pegar apenas a pagina atual
+                page: this.products.current_page,
+                filter: this.search,
+            } 
+        }        
+    },
+
     data(){
         return{
             search:'',
@@ -106,20 +120,7 @@ export default {
 
         }
     },
-    computed:{
-        products(){
-            return this.$store.state.products.items
-        },
-        //vai retornar um objeto com informações que serão enviadas
-        //como parametros dinamicamente
-        params(){
-            return{
-                //vai pegar apenas a pagina atual
-                page: this.products.current_page,
-                filter: this.search,
-            } 
-        }        
-    },
+    
     methods:{        
         loadProducts(page){
             //quando o valor não for o valor padrão passado pelo created 1 aqui passamos  o novo valor com (,page)
