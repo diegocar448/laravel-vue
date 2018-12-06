@@ -53,7 +53,11 @@
             </tbody>
         </table>
 
+        <!-- :pagintation contem os items a ser listados recebe os produtos -->
+        <!-- :offset a quantidade de items que queremos que exiba -->
         <paginate
+
+            
             :pagination="products"
             :offset="6"
             @paginate="loadProducts"
@@ -121,6 +125,17 @@ export default {
             //quando o valor não for o valor padrão passado pelo created 1 aqui passamos  o novo valor com (,page)
             this.$store.dispatch('loadProducts', {...this.params, page})
         },
+        create(){
+            //mudar o status de update para create
+            this.update = false     
+            
+            //abrir modal
+            this.showModal=true
+            
+            //resetar o estado limpando os campos do formulário
+            this.reset()
+
+        },
 
         edit(id){
 
@@ -131,10 +146,13 @@ export default {
                 .then(response => {
                     console.log(response)
 
+                    //products recebe valor do BD
                     this.product = response
 
+                    //mostrar modal
                     this.showModal = true
-
+                    
+                    //altera o update para true para atualizar
                     this.update = true
                 })
                 .catch(() => {
@@ -157,17 +175,7 @@ export default {
             //carregar tbm a listagem na paginação - pagina 1
             this.loadProducts(1)
         },
-        create(){
-            //mudar o status de update para create
-            this.update = false     
-            
-            //abrir modal
-            this.showModal=true
-            
-            //resetar o estado limpando os campos do formulário
-            this.reset()
-
-        },
+        
         reset(){
             this.product = {
                 id: '',

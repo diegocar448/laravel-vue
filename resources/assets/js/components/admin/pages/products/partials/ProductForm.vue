@@ -46,18 +46,20 @@
             }
         },
 
+        data(){
+            return {                
+                //product:{},                
+                errors:{}                
+            }
+        },
+
         computed:{
             categories(){
                 //Aqui vai retornar as nossas categorias
                 return this.$store.state.categories.items.data
             }
-        },        
-        data(){
-            return {
-                product:{},                
-                errors:{}                
-            }
-        },
+        },  
+        
         methods: {
             //Aqui chamamos a action storeProduct
             onSubmit(){   

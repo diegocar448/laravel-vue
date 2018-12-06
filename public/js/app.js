@@ -36007,7 +36007,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -36032,6 +36032,10 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
 //
 //
 //
@@ -36152,15 +36156,26 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         page: page
       }));
     },
+    create: function create() {
+      //mudar o status de update para create
+      this.update = false; //abrir modal
+
+      this.showModal = true; //resetar o estado limpando os campos do formulário
+
+      this.reset();
+    },
     edit: function edit(id) {
       var _this = this;
 
       this.reset(); //carrega da action o metodo loadProduct passando id
 
       this.$store.dispatch('loadProduct', id).then(function (response) {
-        console.log(response);
-        _this.product = response;
-        _this.showModal = true;
+        console.log(response); //products recebe valor do BD
+
+        _this.product = response; //mostrar modal
+
+        _this.showModal = true; //altera o update para true para atualizar
+
         _this.update = true;
       }).catch(function () {
         _this.$snotify.error("Erro ao carregar Produto");
@@ -36178,14 +36193,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.hideModal(); //carregar tbm a listagem na paginação - pagina 1
 
       this.loadProducts(1);
-    },
-    create: function create() {
-      //mudar o status de update para create
-      this.update = false; //abrir modal
-
-      this.showModal = true; //resetar o estado limpando os campos do formulário
-
-      this.reset();
     },
     reset: function reset() {
       this.product = {
@@ -36800,17 +36807,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       type: Object
     }
   },
+  data: function data() {
+    return {
+      //product:{},                
+      errors: {}
+    };
+  },
   computed: {
     categories: function categories() {
       //Aqui vai retornar as nossas categorias
       return this.$store.state.categories.items.data;
     }
-  },
-  data: function data() {
-    return {
-      product: {},
-      errors: {}
-    };
   },
   methods: {
     //Aqui chamamos a action storeProduct
