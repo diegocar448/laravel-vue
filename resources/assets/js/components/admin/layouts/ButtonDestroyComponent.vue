@@ -22,7 +22,7 @@
                 this.$snotify.error(`Deseja realmente deletar o registro ${item.name}`,              
                 'Confirma?',
                 {
-                    //timeout:10000,
+                    timeout:10000,
                     showProgressBar:true,
                     closeOnClick: true,
                     pauseOnHover:true,

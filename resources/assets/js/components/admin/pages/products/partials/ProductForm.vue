@@ -1,6 +1,12 @@
 <template>
     <div>
         <form class="form" @submit.prevent="onSubmit">
+
+            <div :class="['form-group', { 'has-error': errors.image}]">
+                <div v-if="errors.image">{{ errors.image[0] }}</div>
+                <input type="file" class="form-control" @change="onFileChange">
+            </div>
+
             <div :class="['form-group', { 'has-error': errors.name}]">
                 <div v-if="errors.name">{{ errors.name[0] }}</div>
                 <input type="text" v-model="product.name" class="form-control" placeholder="Nome do Produto">
@@ -16,7 +22,7 @@
 
             <div :class="['form-group', { 'has-error': errors.description}]">
                 <div v-if="errors.description">{{ errors.description[0] }}</div>
-                <textarea v-model="product.description" id="" cols="30" rows="10" class="form-control" placeholder="Descrição do Produto"></textarea>
+                <textarea v-model="product.description" id="" cols="30" rows="5" class="form-control" placeholder="Descrição do Produto"></textarea>
             </div>
 
             <div class="form-group">
@@ -49,7 +55,8 @@
         data(){
             return {                
                 //product:{},                
-                errors:{}                
+                errors:{},
+                upload: null                
             }
         },
 
@@ -93,6 +100,20 @@
                     //image:'',
                     category_id: 1,
                 }
+            },
+
+            onFileChange(e){
+
+                //adicionar valor a variável usando a propriedade target  ou a dataTransfer que faz o mesmo que o target
+                let files = e.target.files || e.dataTransfer.files
+
+                //se existe arquivo entre em return para encerrar
+                if(!files.length)
+                    return
+
+                //se for diferente então existe arquivo e entrará aqui
+                this.upload = files[0]
+               
             }
         }
     }

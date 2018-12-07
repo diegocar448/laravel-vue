@@ -36791,6 +36791,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     //direcionar para store ou update na action
@@ -36808,7 +36814,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   data: function data() {
     return {
       //product:{},                
-      errors: {}
+      errors: {},
+      upload: null
     };
   },
   computed: {
@@ -36846,6 +36853,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         //image:'',
         category_id: 1
       };
+    },
+    onFileChange: function onFileChange(e) {
+      //adicionar valor a variável usando a propriedade target  ou a dataTransfer que faz o mesmo que o target
+      var files = e.target.files || e.dataTransfer.files; //se existe arquivo entre em return para encerrar
+
+      if (!files.length) return; //se for diferente então existe arquivo e entrará aqui
+
+      this.upload = files[0];
     }
   }
 });
@@ -36871,6 +36886,22 @@ var render = function() {
         }
       },
       [
+        _c(
+          "div",
+          { class: ["form-group", { "has-error": _vm.errors.image }] },
+          [
+            _vm.errors.image
+              ? _c("div", [_vm._v(_vm._s(_vm.errors.image[0]))])
+              : _vm._e(),
+            _vm._v(" "),
+            _c("input", {
+              staticClass: "form-control",
+              attrs: { type: "file" },
+              on: { change: _vm.onFileChange }
+            })
+          ]
+        ),
+        _vm._v(" "),
         _c("div", { class: ["form-group", { "has-error": _vm.errors.name }] }, [
           _vm.errors.name
             ? _c("div", [_vm._v(_vm._s(_vm.errors.name[0]))])
@@ -36976,7 +37007,7 @@ var render = function() {
               attrs: {
                 id: "",
                 cols: "30",
-                rows: "10",
+                rows: "5",
                 placeholder: "Descrição do Produto"
               },
               domProps: { value: _vm.product.description },
@@ -37095,7 +37126,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var _this = this;
 
       this.$snotify.error("Deseja realmente deletar o registro ".concat(item.name), 'Confirma?', {
-        //timeout:10000,
+        timeout: 10000,
         showProgressBar: true,
         closeOnClick: true,
         pauseOnHover: true,
