@@ -4,6 +4,14 @@ import { URL_BASE } from '../../../config/configs'
 
 const RESOURCE = 'products'
 
+//Criamos essa propriedade que são as informações do HEADER necessárias para o upload de aruivos
+//nesse caso são as configuraçoes de header upload do storeProduct cria novo registro de upload
+const CONFIGS = {
+    headers:{
+        'content-type': 'multipart/form-data',
+    }
+}
+
 export default {
     //action de listagem de produtos
     loadProducts(context, params){
@@ -28,13 +36,16 @@ export default {
     },
 
     //action para criar novos produtos
-    storeProduct(context, params){
+    storeProduct(context, formData){
         context.commit('PRELOADER', true)
 
         //retorna informações se deu certo ou não
         return new Promise((resolve, reject) => {
             //axios.post('/api/v1/products', params)
-            axios.post(`${URL_BASE}${RESOURCE}`, params)
+
+            //quando trabalhamos com upload de imagens é preciso passar um terceiro parametro
+            //no caso de upload é necessário passar os HEADER com o terceiro parametro CONFIGS no inicio do arquivo
+            axios.post(`${URL_BASE}${RESOURCE}`, formData, CONFIGS)
                 .then(response => resolve())
                 .catch(error => reject(error.response))                
                 .finally(() => context.commit('PRELOADER', false))
@@ -48,6 +59,8 @@ export default {
         //retorna informações se deu certo ou não
         return new Promise((resolve, reject) => {
             //axios.post('/api/v1/products', params)
+
+            
             axios.put(`${URL_BASE}${RESOURCE}/${params.id}`, params)
                 .then(response => resolve())
                 .catch(error => {

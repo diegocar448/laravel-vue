@@ -36830,8 +36830,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var _this = this;
 
       //ser receber true criará um registro se false vai para o atualizar 
-      var action = this.update ? 'updateProduct' : 'storeProduct';
-      this.$store.dispatch(action, this.product).then(function () {
+      var action = this.update ? 'updateProduct' : 'storeProduct'; //tipo FormData uma class
+      //abaixo só vamos fazer se upload for diferente de null
+      //enviar o objeto de formData (é uma class do JS)
+
+      var formData = new FormData(); //se upload for diferente de null então entra nessa condição
+
+      if (this.upload !== null) //string que é o identificador da nossa string
+        formData.append('image', this.upload); //append é a string do identificador
+
+      formData.append('id', this.product.id);
+      formData.append('name', this.product.name);
+      formData.append('descrition', this.product.descrition);
+      formData.append('category_id', this.product.category_id); ///console.log(formData)
+      //////////////////////////////////////////////////////////////////////////////
+      ////FormData é o formato que javascript usa para fazer o envio de arquivos////
+      //////////////////////////////////////////////////////////////////////////////
+      //this.$store.dispatch(action, this.product)
+
+      this.$store.dispatch(action, formData).then(function () {
         _this.$snotify.success('Sucesso'); //quando fizer o cadastro com sucesso rodará o reset
 
 
@@ -36860,7 +36877,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
       if (!files.length) return; //se for diferente então existe arquivo e entrará aqui
 
-      this.upload = files[0];
+      this.upload = files[0]; //posição zero pq será apenas um arquivo
     }
   }
 });
@@ -38423,7 +38440,14 @@ var index_esm = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__config_configs__ = __webpack_require__(104);
 
 
-var RESOURCE = 'products';
+var RESOURCE = 'products'; //Criamos essa propriedade que são as informações do HEADER necessárias para o upload de aruivos
+//nesse caso são as configuraçoes de header upload do storeProduct cria novo registro de upload
+
+var CONFIGS = {
+  headers: {
+    'content-type': 'multipart/form-data'
+  }
+};
 /* harmony default export */ __webpack_exports__["a"] = ({
   //action de listagem de produtos
   loadProducts: function loadProducts(context, params) {
@@ -38452,12 +38476,14 @@ var RESOURCE = 'products';
     });
   },
   //action para criar novos produtos
-  storeProduct: function storeProduct(context, params) {
+  storeProduct: function storeProduct(context, formData) {
     context.commit('PRELOADER', true); //retorna informações se deu certo ou não
 
     return new Promise(function (resolve, reject) {
       //axios.post('/api/v1/products', params)
-      __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post("".concat(__WEBPACK_IMPORTED_MODULE_1__config_configs__["a" /* URL_BASE */]).concat(RESOURCE), params).then(function (response) {
+      //quando trabalhamos com upload de imagens é preciso passar um terceiro parametro
+      //no caso de upload é necessário passar os HEADER com o terceiro parametro CONFIGS no inicio do arquivo
+      __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post("".concat(__WEBPACK_IMPORTED_MODULE_1__config_configs__["a" /* URL_BASE */]).concat(RESOURCE), formData, CONFIGS).then(function (response) {
         return resolve();
       }).catch(function (error) {
         return reject(error.response);

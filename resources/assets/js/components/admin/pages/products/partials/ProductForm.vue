@@ -56,7 +56,7 @@
             return {                
                 //product:{},                
                 errors:{},
-                upload: null                
+                upload: null,                
             }
         },
 
@@ -74,7 +74,29 @@
                  //ser receber true criará um registro se false vai para o atualizar 
                 let action = this.update ? 'updateProduct' : 'storeProduct'
 
-                this.$store.dispatch(action, this.product)
+
+                //tipo FormData uma class
+                //abaixo só vamos fazer se upload for diferente de null
+                //enviar o objeto de formData (é uma class do JS)
+                const formData = new FormData()
+
+                //se upload for diferente de null então entra nessa condição
+                if(this.upload !== null)
+                    //string que é o identificador da nossa string
+                    formData.append('image', this.upload)
+                //append é a string do identificador
+                formData.append('id', this.product.id)
+                formData.append('name', this.product.name)
+                formData.append('descrition', this.product.descrition)
+                formData.append('category_id', this.product.category_id)
+                ///console.log(formData)
+
+                //////////////////////////////////////////////////////////////////////////////
+                ////FormData é o formato que javascript usa para fazer o envio de arquivos////
+                //////////////////////////////////////////////////////////////////////////////
+
+                //this.$store.dispatch(action, this.product)
+                this.$store.dispatch(action, formData)
                 .then(() => {
                     this.$snotify.success('Sucesso')
                     //quando fizer o cadastro com sucesso rodará o reset
@@ -112,7 +134,7 @@
                     return
 
                 //se for diferente então existe arquivo e entrará aqui
-                this.upload = files[0]
+                this.upload = files[0] //posição zero pq será apenas um arquivo
                
             }
         }
