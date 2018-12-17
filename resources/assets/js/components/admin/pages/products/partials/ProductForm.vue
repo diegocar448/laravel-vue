@@ -87,7 +87,7 @@
                 //append é a string do identificador
                 formData.append('id', this.product.id)
                 formData.append('name', this.product.name)
-                formData.append('descrition', this.product.descrition)
+                formData.append('description', this.product.description)
                 formData.append('category_id', this.product.category_id)
                 ///console.log(formData)
 

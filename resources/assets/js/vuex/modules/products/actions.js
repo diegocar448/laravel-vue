@@ -53,15 +53,18 @@ export default {
     },
 
     //action para editar registros de produtos existentes
-    updateProduct(context, params) {
+    updateProduct(context, formData) {
         context.commit('PRELOADER', true)
+
+        //É preciso passar um parametro adicional, informar se essa requisição é uma requisição put ou post
+        formData.append('_method', 'PUT')    
 
         //retorna informações se deu certo ou não
         return new Promise((resolve, reject) => {
-            //axios.post('/api/v1/products', params)
-
+            //axios.post('/api/v1/products', params)            
             
-            axios.put(`${URL_BASE}${RESOURCE}/${params.id}`, params)
+            //usamos o formData.get pq é um objeto especifico e não mais um objeto vazio
+            axios.post(`${URL_BASE}${RESOURCE}/${formData.get('id')}`, formData)
                 .then(response => resolve())
                 .catch(error => {
                     reject(error.response)

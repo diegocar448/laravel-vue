@@ -36841,7 +36841,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
       formData.append('id', this.product.id);
       formData.append('name', this.product.name);
-      formData.append('descrition', this.product.descrition);
+      formData.append('description', this.product.description);
       formData.append('category_id', this.product.category_id); ///console.log(formData)
       //////////////////////////////////////////////////////////////////////////////
       ////FormData é o formato que javascript usa para fazer o envio de arquivos////
@@ -38493,12 +38493,15 @@ var CONFIGS = {
     });
   },
   //action para editar registros de produtos existentes
-  updateProduct: function updateProduct(context, params) {
-    context.commit('PRELOADER', true); //retorna informações se deu certo ou não
+  updateProduct: function updateProduct(context, formData) {
+    context.commit('PRELOADER', true); //É preciso passar um parametro adicional, informar se essa requisição é uma requisição put ou post
+
+    formData.append('_method', 'PUT'); //retorna informações se deu certo ou não
 
     return new Promise(function (resolve, reject) {
-      //axios.post('/api/v1/products', params)
-      __WEBPACK_IMPORTED_MODULE_0_axios___default.a.put("".concat(__WEBPACK_IMPORTED_MODULE_1__config_configs__["a" /* URL_BASE */]).concat(RESOURCE, "/").concat(params.id), params).then(function (response) {
+      //axios.post('/api/v1/products', params)            
+      //usamos o formData.get pq é um objeto especifico e não mais um objeto vazio
+      __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post("".concat(__WEBPACK_IMPORTED_MODULE_1__config_configs__["a" /* URL_BASE */]).concat(RESOURCE, "/").concat(formData.get('id')), formData).then(function (response) {
         return resolve();
       }).catch(function (error) {
         reject(error.response);
