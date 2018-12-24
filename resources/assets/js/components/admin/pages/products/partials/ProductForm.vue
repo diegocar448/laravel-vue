@@ -2,9 +2,15 @@
     <div>
         <form class="form" @submit.prevent="onSubmit">
 
-            <div :class="['form-group', { 'has-error': errors.image}]">
-                <div v-if="errors.image">{{ errors.image[0] }}</div>
-                <input type="file" class="form-control" @change="onFileChange">
+            <div :class="['form-group', { 'has-error': errors.image}]">    
+                <div v-if="errors.image">{{ errors.image[0] }}</div>  
+                    <div v-if="imagePreview">          
+                        <img :src="imagePreview" class="image-preview">
+                    </div>
+                
+                <div v-else>
+                    <input type="file" class="form-control" @change="onFileChange">
+                </div>
             </div>
 
             <div :class="['form-group', { 'has-error': errors.name}]">
@@ -56,7 +62,8 @@
             return {                
                 //product:{},                
                 errors:{},
-                upload: null,                
+                upload: null, 
+                imagePreview:null,               
             }
         },
 
@@ -134,10 +141,34 @@
                     return
 
                 //se for diferente então existe arquivo e entrará aqui
-                this.upload = files[0] //posição zero pq será apenas um arquivo
-               
+                this.upload = files[0] //posição zero pq será apenas um arquivo  
+                
+                //chamar o metodo previewImage
+                this.previewImage(files[0])
+            },
+
+            //exibir a imagem em uma preview // passando parâmetro arquivo de imagem "file"
+            previewImage(file){
+
+                //fileReader
+
+                let reader = new FileReader()
+                //pegar uma imagem de um caminho temporario para fazer a pré visualização
+                //passando o (e) como callback que é a própria imagem em si
+                reader.onload = (e) =>{
+                    //buffer na pagina para fazer a pré visualização dela
+                    this.imagePreview = e.target.result                    
+                }
+                
+                reader.readAsDataURL(file)
+
+
             }
         }
     }
 
 </script>
+
+<style scoped>
+    .image-preview{max-width: 60px;}
+</style>
